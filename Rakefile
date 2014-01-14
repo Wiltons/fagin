@@ -3,4 +3,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Pickpocket::Application.load_tasks
+Fagin::Application.load_tasks
