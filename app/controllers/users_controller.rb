@@ -23,16 +23,14 @@ class UsersController < ApplicationController
     if signed_in?
       redirect_to(root_url)
     else
-      redirect_to '/auth/pocket', status: 301
-#      @user = User.new(user_params)
-#      if @user.save
-#        sign_in @user
-#        flash[:success] = "Welcome to the app!"
-#        redirect_to (root_url)
-#      else
-#        flash[:error] = "Signup error"
-#        render 'new'
-#      end
+      @user = User.new(user_params)
+      if @user.save
+        sign_in @user
+        redirect_to ('/auth/pocket')
+      else
+        flash[:error] = "Signup error"
+        render 'new'
+      end
     end
   end
 
@@ -57,6 +55,10 @@ class UsersController < ApplicationController
       flash[:success] = "User deleted"
       redirect_to users_url
     end
+  end
+
+  def destroy(user)
+    user.destroy
   end
 
   private

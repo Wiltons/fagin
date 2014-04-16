@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   before_save {self.email=email.downcase}
   validates :name, presence: true, length: { maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(?:\.[a-z\d\-]+)*\.[a-z]+\z/i
-  validates :email, presence:   true, confirmation: true,
+  validates :email, presence:   true,
         format:   { with: VALID_EMAIL_REGEX },
         uniqueness: { case_sensitive: false }
 
@@ -15,16 +15,9 @@ class User < ActiveRecord::Base
     Digest::SHA1.hexdigest(token.to_s)
   end
 
-  def User.create_with_omniauth(auth)
-    create! do |user|
-      user.uid=auth["uid"]
-      user.name=params[:name]
-    end
-  end
-
-  def feed
-    # This is preliminary
-    Micropost.where("user_id = ?", id)
+  def User.create_with_omniauth(auth,token)
+    user = User.find_by(remember_token: token)
+    raise user.email.to_yaml
   end
 
   private
