@@ -18,8 +18,8 @@ describe "Static pages" do
     click_link "Contact"
     expect(page).to have_title(full_title('Contact'))
     click_link "Home"
-    click_link "Sign in with Pocket"
-    expect(page).to have_title(full_title('Sign up'))
+#    click_link "Sign in with Pocket"
+#    expect(page).to have_title(full_title('Sign up'))
     click_link "Fagin"
     expect(page).to have_title(full_title(''))
   end
