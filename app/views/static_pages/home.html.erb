@@ -1,0 +1,29 @@
+<% if signed_in? %>
+  <div class="row">
+    <aside class="span4">
+      <section>
+        <%= render 'shared/user_info' %>
+      </section>
+      <section>
+        <%= render 'shared/micropost_form' %>
+      </section>
+    </aside>
+    <div class="span8">
+      <h3>Micropost Feed</h3>
+      <%= render 'shared/feed' %>
+    </div>
+  </div>
+<% else %>
+  <div class="center hero-unit">
+    <h1>Welcome to Fagin</h1>
+ 
+    <h2>An app to help you pick what's in your Pocket</h2>
+
+    <%= image_tag("fagin.gif", alt:"Fagin") %>
+
+    <%= link_to "Sign in with Pocket", signup_path, class: "btn btn-large btn-primary" %>
+
+  </div>
+
+  <%= link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org/' %>
+<% end %>

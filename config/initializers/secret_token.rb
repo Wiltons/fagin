@@ -9,4 +9,20 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Fagin::Application.config.secret_key_base = '645c98b6c34867c23940ae57b41d7bca87031995edb48aa905df647d38f44632bc3d7883772ebe65ff2f858a3b31eb3f0e9f4580ce185646d4666247d6f344f6'
+
+require 'securerandom'
+
+def secure_token
+  token_file = Rails.root.join('.secret')
+  if File.exist?(token_file)
+    # Use the existing token.
+    File.read(token_file).chomp
+  else
+    # Generate a new token and store it in token_file.
+    token = SecureRandom.hex(64)
+    File.write(token_file, token)
+    token
+  end
+end
+
+Fagin::Application.config.secret_key_base = secure_token
