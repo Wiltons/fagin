@@ -23,15 +23,16 @@ class UsersController < ApplicationController
     if signed_in?
       redirect_to(root_url)
     else
-      @user = User.new(user_params)
-      if @user.save
-        sign_in @user
-        flash[:success] = "Welcome to the app!"
-        redirect_to @user
-      else
-        flash[:error] = "Signup error"
-        render 'new'
-      end
+      redirect_to '/auth/pocket', status: 301
+#      @user = User.new(user_params)
+#      if @user.save
+#        sign_in @user
+#        flash[:success] = "Welcome to the app!"
+#        redirect_to (root_url)
+#      else
+#        flash[:error] = "Signup error"
+#        render 'new'
+#      end
     end
   end
 
@@ -61,8 +62,7 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:name, :email, :password, 
-                                    :password_confirmation)
+      params.require(:user).permit(:name, :email)
     end
 
     def correct_user
