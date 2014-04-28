@@ -21,9 +21,9 @@ ActiveRecord::Schema.define(version: 20140416083816) do
     t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "admin",           default: false
     t.string   "password_digest"
     t.string   "remember_token"
+    t.boolean  "admin",           default: false
     t.string   "uid"
   end
 

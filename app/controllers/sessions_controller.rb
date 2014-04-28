@@ -6,11 +6,22 @@ class SessionsController < ApplicationController
   def create
     auth = request.env["omniauth.auth"]
     remember_token = cookies[:remember_token]
-    user = User.find_by_uid(auth["uid"]) || User.create_with_omniauth(auth,current_user)
+    if User.find_by_uid(auth["uid"])
+      user = User.find_by_uid(auth["uid"])
+      newuser = false 
+    else
+      user = User.create_with_omniauth(auth)
+      newuser = true
+    end
     session[:user_id] = user.id
     sign_in(user)
-    flash[:success] = "Signed in!"
-    redirect_to root_url
+    if newuser
+      flash[:success] = "Welcome to Fagin!"
+      redirect_to edit_user_path(current_user)
+    else
+      flash[:success] = "Welcome back!"
+      redirect_to root_url
+    end
   end
 
   def destroy
@@ -20,9 +31,8 @@ class SessionsController < ApplicationController
   end
 
   def failure
-    User.destroy(current_user)
-    redirect_to signup_path
-    flash[:error] = "Pocket authentication error."
+    redirect_to root_url
+    flash[:error] = "Pocket authentication failed"
   end
 
 end
