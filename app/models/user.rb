@@ -15,9 +15,9 @@ class User < ActiveRecord::Base
     Digest::SHA1.hexdigest(token.to_s)
   end
 
-  def User.create_with_omniauth(auth,token)
-    user = User.find_by(remember_token: token)
-    raise user.email.to_yaml
+  def User.create_with_omniauth(auth,user)
+    user.update_attribute(:uid, auth[:uid])
+    return user
   end
 
   private

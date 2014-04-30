@@ -24,28 +24,28 @@ describe 'User Pages' do
       end
 
       describe "with Pocket failure" do
-        OmniAuth.config.test_mode = true
-        OmniAuth.config.mock_auth[:pocket] = :invalid_credentials
-
         before do
           fill_in "Name",      with: "Example Name"
           fill_in "Email",     with: "example@test.com"
-          click_button submit
+          OmniAuth.config.test_mode = true
+          OmniAuth.config.mock_auth[:pocket] = :invalid_credentials
         end
         
-        it {should have_title('Sign up')}
-        it {should have_content('error')}
-        
-      end
+        it "should not create a user" do
+          expect{click_button submit}.not_to change(User, :count)
+          expect(page).to have_selector('div.alert.alert-error')
+          expect(page).to have_title('Sign up')
+        end
 
+      end
     end
 
     describe "with valid information" do
-      OmniAuth.config.test_mode = true
-      OmniAuth.config.mock_auth[:pocket] = OmniAuth::AuthHash.new({provider: 'pocket', uid: '123'})
       before do
         fill_in "Name",               with: "Example User"
         fill_in "Email",              with: "example@test.com"
+        OmniAuth.config.test_mode = true
+        OmniAuth.config.mock_auth[:pocket] = OmniAuth::AuthHash.new({provider: 'pocket', uid: '123'})
       end
 
       it "should create a new user" do

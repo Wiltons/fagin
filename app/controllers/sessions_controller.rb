@@ -5,10 +5,13 @@ class SessionsController < ApplicationController
 
   def create
     auth = request.env["omniauth.auth"]
-    token = cookies[:remember_token]
-    user = User.find_by_uid(auth["uid"]) || User.create_with_omniauth(auth,token)
+    remember_token = cookies[:remember_token]
+    user = User.find_by_uid(auth["uid"]) || User.create_with_omniauth(auth,current_user)
     session[:user_id] = user.id
-    redirect_to root_url, :notice => "Signed in!"
+    sign_in(user)
+    flash[:success] = "Signed in!"
+    redirect_to root_url
+    raise auth.to_yaml
   end
 
   def destroy
