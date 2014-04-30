@@ -11,7 +11,6 @@ class SessionsController < ApplicationController
     sign_in(user)
     flash[:success] = "Signed in!"
     redirect_to root_url
-    raise auth.to_yaml
   end
 
   def destroy
