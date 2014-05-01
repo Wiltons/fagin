@@ -11,20 +11,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140416083816) do
+ActiveRecord::Schema.define(version: 20140501003526) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "articles", force: true do |t|
+    t.integer  "item_id"
+    t.string   "given_url"
+    t.string   "given_title"
+    t.boolean  "favorite"
+    t.integer  "status"
+    t.integer  "word_count"
+    t.string   "tags"
+    t.string   "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "articles", ["created_at"], name: "index_articles_on_created_at", using: :btree
+  add_index "articles", ["user_id", "item_id"], name: "index_articles_on_user_id_and_item_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "name"
     t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "password_digest"
     t.string   "remember_token"
-    t.boolean  "admin",           default: false
+    t.boolean  "admin",          default: false
     t.string   "uid"
+    t.string   "pocket_token"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
