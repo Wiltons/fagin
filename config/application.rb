@@ -5,6 +5,7 @@ require "active_record/railtie"
 require "action_controller/railtie"
 require "action_mailer/railtie"
 require "sprockets/railtie"
+require "yaml"
 # require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
@@ -26,5 +27,13 @@ module Fagin
     # config.i18n.default_locale = :de
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
     I18n.enforce_available_locales = true
+
+    rails_root = Rails.root || File.dirname(__FILE__) + '/../..'
+    config = YAML.load_file(rails_root.to_s + '/config/env_vars.yml')
+    if config.key?(Rails.env) && config[Rails.env].is_a?(Hash)
+      config[Rails.env].each do |key, value|
+        ENV[key] = value.to_s
+      end
+    end
   end
 end

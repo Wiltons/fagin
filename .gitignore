@@ -24,4 +24,4 @@ doc/
 .DS_Store
 .idea
 .secret
-config/initializers/omniauth-pocket.rb
+config/env_vars.yml
