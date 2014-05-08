@@ -2,8 +2,8 @@ class CreateArticles < ActiveRecord::Migration
   def change
     create_table :articles do |t|
       t.integer :item_id
-      t.string :given_url
-      t.string :given_title
+      t.text :given_url
+      t.text :given_title
       t.boolean :favorite
       t.integer :status
       t.integer :word_count

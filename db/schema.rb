@@ -18,8 +18,8 @@ ActiveRecord::Schema.define(version: 20140501003526) do
 
   create_table "articles", force: true do |t|
     t.integer  "item_id"
-    t.string   "given_url"
-    t.string   "given_title"
+    t.text     "given_url"
+    t.text     "given_title"
     t.boolean  "favorite"
     t.integer  "status"
     t.integer  "word_count"
