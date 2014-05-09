@@ -1,4 +1,8 @@
 <% provide(:title, 'About Us') %>
 <h1>About Us</h1>
 <p>This is the about us page for a sample app</p>
-<%= populate_articles(current_user) %>
+<aside class="span4">
+  <ol class="articles">
+    <%= render @articles %>
+  </ol>
+</aside>

@@ -6,6 +6,7 @@ class StaticPagesController < ApplicationController
   end
 
   def about
+    @articles=current_user.articles
   end
 
   def contact

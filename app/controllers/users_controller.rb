@@ -67,7 +67,6 @@ class UsersController < ApplicationController
     req = Net::HTTP::Post.new(uri.path, initheader = {'Content-Type' => 'application/json'})
     req.body={"consumer_key" => ENV['pocket_key'],
               "access_token" => @user.pocket_token,
-              "count" => "500",
               "since" => options[:since] }.to_json
     res = Net::HTTP.start(uri.host, uri.port, :use_ssl => true) do |http|
       http.verify_mode= OpenSSL::SSL::VERIFY_NONE
@@ -79,10 +78,11 @@ class UsersController < ApplicationController
       @article = @user.articles.build(
                   item_id: key,
                   given_url: value["given_url"],
-                  favorite: value["favorite"] ,
+                  favorite: value["favorite"],
+                  status: value["status"],
                   #given_title: value["given_title"],
                   word_count: value["word_count"])
-      raise article.to_yaml unless @article.save
+      @article.save
     end
     return article
   end
