@@ -11,6 +11,7 @@ Fagin::Application.routes.draw do
   match '/contact',	to:'static_pages#contact',	      via: 'get'
   match '/auth/pocket/callback',  to:'sessions#create',  via: 'get'
   match '/auth/failure', to:'sessions#failure', via: 'get'
+  match '/show/populate_articles', to:'users#populate_articles', via: 'post'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

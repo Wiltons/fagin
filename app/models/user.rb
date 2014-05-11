@@ -23,19 +23,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def User.populate_articles(options={since:"1000000000"})
-    uri=URI('https://getpocket.com/v3/get')
-    req = Net::HTTP::Post.new(uri.path, initheader = {'Content-Type' => 'application/json'})
-    req.body={"consumer_key" => ENV['pocket_key'], 
-              "access_token" => user.pocket_token, 
-              "count" => "10" }.to_json
-    res = Net::HTTP.start(uri.host, uri.port, :use_ssl => true) do |http|
-      http.verify_mode= OpenSSL::SSL::VERIFY_NONE
-      http.ssl_version= :SSLv3
-      http.request req
-    end
-  end
-
   private
 
     def create_remember_token

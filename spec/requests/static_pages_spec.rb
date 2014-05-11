@@ -18,8 +18,7 @@ describe "Static pages" do
     click_link "Contact"
     expect(page).to have_title(full_title('Contact'))
     click_link "Home"
-#    click_link "Sign in with Pocket"
-#    expect(page).to have_title(full_title('Sign up'))
+    expect(page).to have_title(full_title(''))
     click_link "Fagin"
     expect(page).to have_title(full_title(''))
   end
@@ -37,7 +36,14 @@ describe "Static pages" do
       let(:user) {FactoryGirl.create(:user)}
       before do
         sign_in user
+        click_link "Sign in with Pocket"
+      end
+
+      it {should have_content('Update your profile')}
+      
+      it "should have populate links" do
         visit root_path
+        expect(page).to have_selector(:button, 'Fetch Pocket Articles')
       end
     end
   end

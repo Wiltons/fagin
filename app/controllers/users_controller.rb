@@ -40,7 +40,6 @@ class UsersController < ApplicationController
   def update
     if @user.update_attributes(user_params)
       flash[:success] = "Profile updated"
-      populate_articles
       redirect_to @user
     else
       render 'edit'
@@ -62,20 +61,23 @@ class UsersController < ApplicationController
     user.destroy
   end
 
-  def populate_articles(options={since:"1000000000"})
+  def populate_articles
+    since = params[:since].nil? ? 1000000000 : params[:since]
     uri=URI('https://getpocket.com/v3/get')
     req = Net::HTTP::Post.new(uri.path, initheader = {'Content-Type' => 'application/json'})
     req.body={"consumer_key" => ENV['pocket_key'],
-              "access_token" => @user.pocket_token,
-              "since" => options[:since] }.to_json
+              "access_token" => current_user.pocket_token,
+              "since" => since }.to_json
     res = Net::HTTP.start(uri.host, uri.port, :use_ssl => true) do |http|
       http.verify_mode= OpenSSL::SSL::VERIFY_NONE
       http.ssl_version= :SSLv3
       http.request req
     end
     article = JSON[res.body]
+    current_user.last_fetch=Time.now.to_i
+    current_user.save
     article["list"].each do |key, value|
-      @article = @user.articles.build(
+      @article = current_user.articles.build(
                   item_id: key,
                   given_url: value["given_url"],
                   favorite: value["favorite"],
@@ -84,7 +86,12 @@ class UsersController < ApplicationController
                   word_count: value["word_count"])
       @article.save
     end
-    return article
+    if article["list"].blank?
+      flash[:notice] = "No new articles saved since last fetch"
+    else
+      flash[:success] = "New articles fetched!"
+    end
+    redirect_to root_path
   end
 
 

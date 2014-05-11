@@ -4,4 +4,11 @@
 </h1>
 <span>
   <%= link_to "view my profile", current_user %>
+  <p> Last update:
+    <% if current_user.last_fetch.nil? %>
+      Never
+    <% else %>
+      <%= time_ago_in_words(Time.at(current_user.last_fetch)) %> ago 
+    <% end %>
+  </p>
 </span>
