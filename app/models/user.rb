@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   has_many :articles
+  has_many :fetches
   before_create :create_remember_token
   before_save {self.email=email.downcase unless self.email.nil?}
   validates :name, length: { maximum: 50 }

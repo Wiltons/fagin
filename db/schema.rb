@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140509032615) do
+ActiveRecord::Schema.define(version: 20140512124307) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,13 +32,21 @@ ActiveRecord::Schema.define(version: 20140509032615) do
   add_index "articles", ["created_at"], name: "index_articles_on_created_at", using: :btree
   add_index "articles", ["user_id", "item_id"], name: "index_articles_on_user_id_and_item_id", using: :btree
 
+  create_table "fetches", force: true do |t|
+    t.boolean  "full_fetch"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "users", force: true do |t|
     t.string   "name"
     t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "admin",           default: false
+    t.string   "password_digest"
     t.string   "remember_token"
-    t.boolean  "admin",          default: false
     t.string   "uid"
     t.string   "pocket_token"
     t.integer  "last_fetch"

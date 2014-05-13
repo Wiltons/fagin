@@ -5,6 +5,9 @@
         <%= render 'shared/user_info' %>
       </section>
     </aside>
+    <%= button_to (@fetch), class: "btn" do %>
+      Test
+    <% end %>
     <%= button_to "Fetch New Pocket Articles",
                 { :controller => 'users',
                   :action => "populate_articles",
