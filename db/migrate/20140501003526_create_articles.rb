@@ -8,11 +8,11 @@ class CreateArticles < ActiveRecord::Migration
       t.integer :status
       t.integer :word_count
       t.string :tags
-      t.string :user_id
+      t.integer :fetch_id
 
       t.timestamps
     end
-    add_index :articles, [:user_id, :item_id]
+    add_index :articles, [:fetch_id, :item_id], name: "index_relationships_on_fetch_id_and_item_id", unique: true
     add_index :articles, [:created_at]
   end
 end

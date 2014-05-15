@@ -9,11 +9,16 @@ FactoryGirl.define do
     end
   end
 
+  factory :fetch do
+    full_fetch true
+    user
+  end
+
   factory :article do
     item_id     1
     word_count  500
     given_url   "http://example.com"
-    user
+    fetch
   end
 end
 

@@ -1,5 +1,8 @@
 class Fetch < ActiveRecord::Base
   belongs_to :user
+  has_many :articles, dependent: :destroy
+  validates :user_id,     presence: true
+  validates :full_fetch,  presence: true
 
   def populate_articles
     since = params[:since].nil? ? 1000000000 : params[:since]

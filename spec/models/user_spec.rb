@@ -68,7 +68,4 @@ describe User do
     it {should be_admin}
   end
 
-  describe "article associations" do
-    before {@user.save}
-  end
 end
