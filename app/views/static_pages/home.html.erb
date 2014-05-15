@@ -5,19 +5,14 @@
         <%= render 'shared/user_info' %>
       </section>
     </aside>
-    <%= button_to (@fetch), class: "btn" do %>
-      Test
+
+    <%= form_for(@fetch) do |f| %>
+      <%= f.label :full_fetch %>
+      <%= f.radio_button(:full_fetch, true) %>
+      <%= f.label "partial fetch" %>
+      <%= f.radio_button(:full_fetch, false) %>
+      <%= f.submit "Fetch Pocket Articles", data: {confirm: "Test"} %>
     <% end %>
-    <%= button_to "Fetch New Pocket Articles",
-                { :controller => 'users',
-                  :action => "populate_articles",
-                  :since => current_user.last_fetch},
-                  class: "btn" %>
-    <%= button_to "Fetch All Pocket Articles",
-                { :controller => 'users',
-                  :action => "populate_articles"},
-                  :data => {confirm: "Are you sure?\nThis action will fetch your full Pocket list and may take a long time." },
-                  class: "btn" %>
   </div>
 <% else %>
   <div class="center hero-unit">

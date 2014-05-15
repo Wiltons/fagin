@@ -1,6 +1,6 @@
 class FetchesController < ApplicationController
   def create
-    @fetch = current_user.fetches.build(fetch_params)
+    @fetch = current_user.fetches.build
     raise @fetch.to_yaml
     if @fetch.save
       flash[:success] = "Fetch successful"
@@ -12,11 +12,4 @@ class FetchesController < ApplicationController
 
   def destroy
   end
-
-  private
-
-    def fetch_params
-      params.require(:fetch).permit(:full_fetch)
-    end
-
 end
