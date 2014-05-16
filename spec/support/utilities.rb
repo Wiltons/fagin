@@ -19,11 +19,12 @@ def sign_in(user, options={})
     cookies[:remember_token]=remember_token
     user.update_attribute(:remember_token, User.hash(remember_token))
   else
-    OmniAuth.config.test_mode=true
     OmniAuth.config.mock_auth[:pocket] = OmniAuth::AuthHash.new(
-                                         { provider: 'pocket',
-                                           uid: '123',
-                                           credentials:
-                                             {token: '111'}})
+                                       { provider: 'pocket',
+                                         uid: '123',
+                                         credentials:
+                                          {token: '111'}
+                                       })
+    click_link "Sign in with Pocket"
   end
 end

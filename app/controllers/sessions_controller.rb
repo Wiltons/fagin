@@ -31,8 +31,8 @@ class SessionsController < ApplicationController
   end
 
   def failure
-    redirect_to root_url
     flash[:error] = "Pocket authentication failed"
+    redirect_to root_url
   end
 
 end
