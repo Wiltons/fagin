@@ -21,6 +21,11 @@ describe Fetch do
     it {should_not be_valid}
   end
 
+  describe "when full_fetch is not present" do
+    before {@fetch.full_fetch=nil}
+    it {should_not be_valid}
+  end
+
   describe "articles association" do
     before {@fetch.save}
     let(:article) {FactoryGirl.create(:article, fetch: @fetch)}

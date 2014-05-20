@@ -15,9 +15,9 @@ FactoryGirl.define do
   end
 
   factory :article do
-    item_id     1
-    word_count  500
-    given_url   "http://example.com"
+    sequence(:item_id)      { |n| n}
+    sequence(:word_count)   { |n| n*50}
+    sequence(:given_url)    { |n| "http://example#{n}.com" }
     fetch
   end
 end

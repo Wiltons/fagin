@@ -4,10 +4,11 @@ class CreateArticles < ActiveRecord::Migration
       t.integer :item_id
       t.text :given_url
       t.text :given_title
-      t.boolean :favorite
+      t.integer :favorite
       t.integer :status
+      t.integer :is_article
       t.integer :word_count
-      t.string :tags
+      t.text :tags
       t.integer :fetch_id
 
       t.timestamps

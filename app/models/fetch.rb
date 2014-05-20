@@ -19,47 +19,21 @@ class Fetch < ActiveRecord::Base
     end
     article = JSON[res.body]
     article["list"].each do |key, value|
-#=begin
       art = Article.find_or_initialize_by(item_id: key)
-      art.update_attributes(
+      params = {
         item_id: key,
         given_url: value["given_url"],
         favorite: value["favorite"],
         status: value["status"],
-        #given_title: value["given_title"],
+        given_title: value["given_title"],
         word_count: value["word_count"]
-      ) if art.persisted?
-      self.articles.create(
-        item_id: key,
-        given_url: value["given_url"],
-        favorite: value["favorite"],
-        status: value["status"],
-        #given_title: value["given_title"],
-        word_count: value["word_count"]
-      ) unless art.persisted?
+      }
+      if art.persisted?
+        art.update_attributes(params)
+      else
+        self.articles.create(params)
+      end
     end
-#=end
-=begin
-      art= Article.create_with(
-        given_url: value["given_url"],
-        favorite: value["favorite"],
-        status: value["status"],
-        word_count: value["word_count"]
-      ).find_or_create_by(item_id: key)
-      raise art.save.to_yaml
-    end
-=end
-=begin
-      art=self.articles.build(
-                  item_id: key,
-                  given_url: value["given_url"],
-                  favorite: value["favorite"],
-                  status: value["status"],
-                  #given_title: value["given_title"],
-                  word_count: value["word_count"])
-      art.save
-    end
-=end
   end
 
 end
