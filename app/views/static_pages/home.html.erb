@@ -6,13 +6,11 @@
       </section>
     </aside>
 
-    <%#= form_for(@fetch) do |f| %>
-      <%#= f.label :full_fetch %>
-      <%#= f.radio_button(:full_fetch, true) %>
-      <%#= f.label "partial fetch" %>
-      <%#= f.radio_button(:full_fetch, false) %>
-      <%#= f.submit "Fetch Pocket Articles", data: {confirm: "Test"} %>
-    <%# end %>
+    <%= form_for(@fetch) do |f| %>
+      <%= f.label "Full Fetch" %>
+      <%= f.check_box(:full_fetch) %>
+      <%= f.submit "Fetch Pocket Articles" %>
+    <% end %>
   </div>
 <% else %>
   <div class="center hero-unit">

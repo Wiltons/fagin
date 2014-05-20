@@ -1,13 +1,12 @@
 class FetchesController < ApplicationController
   def create
-    @fetch = current_user.fetches.build(fetch_params)
-    raise @fetch.to_yaml
-    if @fetch.save
-      flash[:success] = "Fetch successful"
-      redirect_to root_url
+    @fetch = current_user.fetches.create(fetch_params)
+    if @fetch.articles.empty?
+      flash[:notice] = "No new articles to fetch"
     else
-      render 'static_pages/home'
+      flash[:success] = "Successfully fetched #{@fetch.articles.count} articles!"
     end
+    redirect_to root_url
   end
 
   def destroy

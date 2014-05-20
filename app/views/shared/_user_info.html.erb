@@ -11,4 +11,7 @@
       <%= time_ago_in_words(Time.at(current_user.fetches.maximum(:created_at))) %> ago
     <% end %>
   </p>
+  <p>
+    <%= pluralize(current_user.fetches.first.articles.count, "article") unless current_user.fetches.maximum(:created_at).nil? %>
+  </p>
 </span>

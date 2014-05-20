@@ -36,7 +36,6 @@ describe "Static pages" do
       let(:user) {FactoryGirl.create(:user)}
       before do
         sign_in user
-        click_link "Sign in with Pocket"
       end
 
       it {should have_content('Update your profile')}

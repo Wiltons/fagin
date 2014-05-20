@@ -2,6 +2,7 @@ class ArticlesController < ApplicationController
   before_action :signed_in_user
 
   def create
+    raise "TEST".to_yaml
     @article = current_user.articles.build(article_params)
     if @article.save
       flash[:success] = "Article created"

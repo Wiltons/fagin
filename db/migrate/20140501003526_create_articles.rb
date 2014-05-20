@@ -12,7 +12,7 @@ class CreateArticles < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :articles, [:fetch_id, :item_id], name: "index_relationships_on_fetch_id_and_item_id", unique: true
+    add_index :articles, [:item_id], unique: true
     add_index :articles, [:created_at]
   end
 end

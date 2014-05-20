@@ -19,6 +19,7 @@ class SessionsController < ApplicationController
       flash[:success] = "Welcome to Fagin!"
       redirect_to edit_user_path(current_user)
     else
+      user.fetches.build(full_fetch: false).save! unless user.fetches.empty?
       flash[:success] = "Welcome back!"
       redirect_to root_url
     end
