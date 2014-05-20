@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'spork'
+require 'fakeweb'
 #uncomment the following line to use spork with the debugger
 #require 'spork/ext/ruby-debug'
 
@@ -93,4 +94,30 @@ RSpec.configure do |config|
 
   OmniAuth.config.test_mode = true
 
+  body = "{\"status\":1,
+    \"complete\":1,
+    \"list\":
+    {\"237938806\":
+      {\"item_id\":\"237938806\",
+      \"resolved_id\":\"237938806\",
+      \"given_url\":\"http:\\/\\/getpocket.com\\/developer\\/docs\\/v3\\/retrieve\",
+      \"given_title\":\"\",
+      \"favorite\":\"0\",
+      \"status\":\"0\",
+      \"time_added\":\"1400690783\",
+      \"time_updated\":\"1400703984\",
+      \"time_read\":\"0\",
+      \"time_favorited\":\"0\",
+      \"sort_id\":0,
+      \"resolved_title\":\"Retrieve\",
+      \"resolved_url\":\"http:\\/\\/getpocket.com\\/developer\\/docs\\/v3\\/retrieve\",
+      \"excerpt\":\"Pocket's \\/v3\\/get endpoint is a single call that is incredibly versatile. A few examples of the types of requests you can make: In order to use the \\/v3\\/get endpoint, your consumer key must have the \\\"Retrieve\\\" permission.\",
+      \"is_article\":\"1\",
+      \"is_index\":\"0\",
+      \"has_video\":\"0\",
+      \"has_image\":\"0\",
+      \"word_count\":\"855\"}
+    }
+  }"
+  FakeWeb.register_uri(:post, "https://getpocket.com/v3/get", body: body)
 end

@@ -36,13 +36,26 @@ describe "Static pages" do
       let(:user) {FactoryGirl.create(:user)}
       before do
         sign_in user
+        visit root_path
       end
 
       it {should have_content('Update your profile')}
       
       it "should have populate links" do
-        visit root_path
         expect(page).to have_selector(:button, 'Fetch Pocket Articles')
+      end
+
+      describe "fetching articles for the first time" do
+        subject { -> {click_button 'Fetch Pocket Articles' } }
+        it { should change(Fetch, :count).by(1) }
+        it { should change(Article, :count).by(1) }
+        
+        describe "fetching an update to existing articles" do
+          before {find(:xpath, "/html/body/div/div/form/input[2]").set(true)}
+          subject { -> {click_button 'Fetch Pocket Articles' } }
+          it { should change(Fetch, :count).by(1) }
+          it { should_not change(Article, :count) }
+        end
       end
     end
   end

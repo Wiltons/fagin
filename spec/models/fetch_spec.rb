@@ -26,8 +26,4 @@ describe Fetch do
     it {should_not be_valid}
   end
 
-  describe "articles association" do
-    before {@fetch.save}
-    let(:article) {FactoryGirl.create(:article, fetch: @fetch)}
-  end
 end
