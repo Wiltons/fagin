@@ -7,6 +7,10 @@ FactoryGirl.define do
     factory :admin do
       admin true
     end
+
+    factory :pocketUser do
+      uid '123'
+    end
   end
 
   factory :fetch do

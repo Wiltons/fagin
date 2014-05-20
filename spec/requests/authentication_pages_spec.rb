@@ -26,10 +26,8 @@ describe "Authentication" do
 
     describe "with a successful pocket signin" do
       let(:user) {FactoryGirl.create(:user)}
-      before do
-        sign_in user
-      end
-=begin
+      let(:pocketUser)  {FactoryGirl.create(:pocketUser)}
+      before {sign_in user}
       it {should have_selector('div.alert.alert-success')}
       describe "page" do
         it {should have_title("Edit user")}
@@ -37,27 +35,20 @@ describe "Authentication" do
         it {should have_link('change', href: 'http://gravatar.com/emails')}
       end
 
-      it {should have_link('Sign out',  href: signout_path)}
-=end
-      it {
-        puts @user.to_yaml
-        puts page.body.to_yaml
-        puts @user.to_yaml
-        should have_link('Settings',      href: edit_user_path(current_user))
-      }
-=begin
-      it {should_not have_link('Sign in',   href: signin_path)}
-      it {should have_link('Push',          href: push_path)}
-      it {should have_link('Profile',       href: user_path(user))}
-
       describe "with signout and signin" do
         before do
+          # Settings and Profile tests fail without pocketUser initialization
+          pocketUser
           click_link "Sign out"
-          sign_in user
+          sign_in pocketUser
         end
         it {should have_content('Last update')}
+        it {should have_link('Sign out',  href: signout_path)}
+        it {should have_link('Settings',      href: edit_user_path(pocketUser))}
+        it {should_not have_link('Sign in',   href: signin_path)}
+        it {should have_link('Push',          href: push_path)}
+        it {should have_link('Profile',       href: user_path(pocketUser))}
       end
-=end
     end
   end
 

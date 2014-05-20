@@ -46,4 +46,3 @@ def fetch_new_article
   }"
   FakeWeb.register_uri(:post, "https://getpocket.com/v3/get", body: body)
 end
-
