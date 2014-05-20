@@ -28,3 +28,21 @@ def sign_in(user, options={})
     click_link "Sign in with Pocket"
   end
 end
+
+def fetch_new_article
+  body = "{\"status\":1,
+    \"complete\":1,
+    \"list\":
+    {\"1111111\":
+      {\"item_id\":\"1111111\",
+      \"given_url\":\"http:\\/\\/getpocket.com\\/developer\\/docs\\/v3\\/retrieve\",
+      \"given_title\":\"\", \"favorite\":\"0\",
+      \"status\":\"0\", \"time_added\":\"#{Time.now.to_i+1000}\",
+      \"time_updated\":\"#{Time.now.to_i+1000}\",
+      \"resolved_title\":\"Retrieve\",
+      \"resolved_url\":\"http:\\/\\/getpocket.com\\/developer\\/docs\\/v3\\/retrieve\",
+      \"is_article\":\"1\", \"word_count\":\"855\"}
+    }
+  }"
+  FakeWeb.register_uri(:post, "https://getpocket.com/v3/get", body: body)
+end

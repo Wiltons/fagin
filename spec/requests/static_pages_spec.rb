@@ -39,22 +39,42 @@ describe "Static pages" do
         visit root_path
       end
 
-      it {should have_content('Update your profile')}
+      it {should have_content('view my profile')}
       
       it "should have populate links" do
         expect(page).to have_selector(:button, 'Fetch Pocket Articles')
       end
 
-      describe "fetching articles for the first time" do
-        subject { -> {click_button 'Fetch Pocket Articles' } }
-        it { should change(Fetch, :count).by(1) }
-        it { should change(Article, :count).by(1) }
-        
-        describe "fetching an update to existing articles" do
-          before {find(:xpath, "/html/body/div/div/form/input[2]").set(true)}
-          subject { -> {click_button 'Fetch Pocket Articles' } }
-          it { should change(Fetch, :count).by(1) }
-          it { should_not change(Article, :count) }
+      describe "fetching articles" do
+        it "should create a fetch and article" do
+          expect{click_button 'Fetch Pocket Articles' }.to change(Article, :count).by(1)
+          expect{click_button 'Fetch Pocket Articles' }.to change(Fetch, :count).by(1)
+        end
+
+        it "should not double-save articles on a full fetch with no new articles" do
+          expect{click_button 'Fetch Pocket Articles' }.to change(Article, :count).by(1)
+          find(:xpath, "/html/body/div/div/form/input[2]").set(true)
+          expect{click_button 'Fetch Pocket Articles' }.not_to change(Article, :count)
+        end
+
+        it "should save a new article on a full fetch with new articles" do
+          expect{click_button 'Fetch Pocket Articles' }.to change(Article, :count).by(1)
+          find(:xpath, "/html/body/div/div/form/input[2]").set(true)
+          fetch_new_article
+          expect{click_button 'Fetch Pocket Articles' }.to change(Article, :count).by(1)
+        end
+
+        it "should not do anything on partial fetch with no new articles" do
+          expect{click_button 'Fetch Pocket Articles' }.to change(Article, :count).by(1)
+          find(:xpath, "/html/body/div/div/form/input[2]").set(false)
+          expect{click_button 'Fetch Pocket Articles' }.not_to change(Article, :count)
+        end
+
+        it "should save a new article on a partial fetch" do
+          expect{click_button 'Fetch Pocket Articles' }.to change(Article, :count).by(1)
+          find(:xpath, "/html/body/div/div/form/input[2]").set(false)
+          fetch_new_article
+          expect{click_button 'Fetch Pocket Articles' }.to change(Article, :count).by(1)
         end
       end
     end
