@@ -11,12 +11,11 @@ describe "Pushing Pages" do
   subject {page}
 
   describe "push page" do
-    before {visit new_push_path}
+    before {visit push_path}
     it {should have_title('Push')}
     it {should have_content('Push updates to Pocket')}
 
     it "should have a quick-tag" do
-      puts page.body.to_yaml
       expect(page).to have_selector(:button, 'Tag long articles')
     end
   end

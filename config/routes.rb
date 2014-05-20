@@ -1,11 +1,12 @@
 Fagin::Application.routes.draw do
   get "fetches/new"
   resources :users
-  resources :pushes
+  resources :pushes, only: [:create]
   resources :fetches, only: [:create, :destroy]
   resources :sessions, only: [:new, :create, :destroy]
   root 'static_pages#home'
   match '/signup',	to:'users#new',			              via: 'get'
+  match '/push',    to:'pushes#new',                  via: 'get'
   match '/signin',  to:'sessions#new',                via: 'get'
   match '/signout', to:'sessions#destroy',            via: 'delete'
   match '/help',	  to:'static_pages#help',		        via: 'get'

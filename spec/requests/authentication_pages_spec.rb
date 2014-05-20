@@ -47,7 +47,7 @@ describe "Authentication" do
         it {should have_link('Sign out',  href: signout_path)}
         it {should have_link('Settings',      href: edit_user_path(pocketUser))}
         it {should_not have_link('Sign in',   href: signin_path)}
-        it {should have_link('Push',          href: new_push_path)}
+        it {should have_link('Push',          href: push_path)}
         it {should have_link('Profile',       href: user_path(pocketUser))}
       end
     end
@@ -56,13 +56,13 @@ describe "Authentication" do
   describe "as a non-signed in user" do
 
     let(:user) {FactoryGirl.create(:user)}
-    it {should_not have_link('Push',        href: new_push_path)}
+    it {should_not have_link('Push',        href: push_path)}
     it {should_not have_link('Profile',     href: user_path(user))}
     it {should_not have_link('Sign out',    href: signout_path)}
     it {should_not have_link('Settings',    href: edit_user_path(user))}
 
     describe "submitting a GET request to the Push#new action" do
-      before {get new_push_path}
+      before {get push_path}
       specify {expect(response.body).not_to match(full_title('Push'))}
       specify {expect(response).to redirect_to(root_url)}
     end
