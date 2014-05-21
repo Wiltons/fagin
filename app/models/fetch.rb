@@ -3,7 +3,7 @@ class Fetch < ActiveRecord::Base
   has_many :articles, dependent: :destroy
   validates :user_id,     presence: true
   validates_inclusion_of :full_fetch, in: [true, false]
-  before_save :populate_articles
+  after_save :populate_articles
 
   def populate_articles
     since = full_fetch ? nil : user.fetches.maximum(:created_at).to_i
@@ -19,24 +19,47 @@ class Fetch < ActiveRecord::Base
     end
     article = JSON[res.body]
     article["list"].each do |key, value|
+#=begin
+      art = Article.find_or_initialize_by(item_id: key)
+      art.update_attributes(
+        item_id: key,
+        given_url: value["given_url"],
+        favorite: value["favorite"],
+        status: value["status"],
+        #given_title: value["given_title"],
+        word_count: value["word_count"]
+      ) if art.persisted?
+      self.articles.create(
+        item_id: key,
+        given_url: value["given_url"],
+        favorite: value["favorite"],
+        status: value["status"],
+        #given_title: value["given_title"],
+        word_count: value["word_count"]
+      ) unless art.persisted?
+    end
+#=end
 =begin
-      test = Article.find_or_create_by(item_id: key) do |art|
-        art.given_url=value["given_url"],
-        art.favorite=value["favorite"],
-        art.status=value["status"],
-        art.word_count=value["word_count"]
-        raise test.to_yaml
-      end
+      art= Article.create_with(
+        given_url: value["given_url"],
+        favorite: value["favorite"],
+        status: value["status"],
+        word_count: value["word_count"]
+      ).find_or_create_by(item_id: key)
+      raise art.save.to_yaml
     end
 =end
-      @article = articles.build(
+=begin
+      art=self.articles.build(
                   item_id: key,
                   given_url: value["given_url"],
                   favorite: value["favorite"],
                   status: value["status"],
                   #given_title: value["given_title"],
                   word_count: value["word_count"])
+      art.save
     end
+=end
   end
 
 end
