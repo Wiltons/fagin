@@ -24,9 +24,11 @@ ActiveRecord::Schema.define(version: 20140609133852) do
     t.integer  "status"
     t.integer  "is_article"
     t.integer  "word_count"
+    t.text     "tags"
     t.integer  "fetch_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "push_id"
   end
 
   add_index "articles", ["created_at"], name: "index_articles_on_created_at", using: :btree
@@ -47,6 +49,7 @@ ActiveRecord::Schema.define(version: 20140609133852) do
 
   create_table "tags", force: true do |t|
     t.string   "name"
+    t.integer  "article_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

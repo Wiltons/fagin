@@ -23,9 +23,6 @@ class Fetch < ActiveRecord::Base
     article = JSON[res.body]
     article["list"].each do |key, value|
       art = Article.find_or_initialize_by(item_id: key)
-      value["tags"].each_pair do
-        puts "TEST".to_yaml
-      end
       params = {
         item_id: key,
         given_url: value["given_url"],
@@ -36,6 +33,12 @@ class Fetch < ActiveRecord::Base
       }
       # If the article exists, update it. Otherwise create it
       art.persisted? ? art.update_attributes(params) : self.articles.create(params)
+      unless value["tags"].nil?
+        value["tags"].each do |key, value|
+          puts key.to_yaml
+          art.tags.build(name: key).save!
+        end
+      end
     end
   end
 
