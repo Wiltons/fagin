@@ -24,6 +24,14 @@ class User < ActiveRecord::Base
     end
   end
 
+  def count_articles
+    numArticles = 0
+    fetches.each do |f|
+      numArticles += f.articles.count
+    end
+    return numArticles
+  end
+
   private
 
     def create_remember_token
