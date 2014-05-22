@@ -11,6 +11,7 @@ class Fetch < ActiveRecord::Base
     req = Net::HTTP::Post.new(uri.path, initheader = {'Content-Type' => 'application/json'})
     req.body={"consumer_key" => ENV['pocket_key'],
               "access_token" => user.pocket_token,
+              "detailType" => 'complete',
               "since" => since }.to_json
     res = Net::HTTP.start(uri.host, uri.port, :use_ssl => true) do |http|
       http.verify_mode= OpenSSL::SSL::VERIFY_NONE
@@ -28,11 +29,7 @@ class Fetch < ActiveRecord::Base
         given_title: value["given_title"],
         word_count: value["word_count"]
       }
-      if art.persisted?
-        art.update_attributes(params)
-      else
-        self.articles.create(params)
-      end
+      art.persisted? ? art.update_attributes(params) : self.articles.create(params)
     end
   end
 

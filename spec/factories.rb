@@ -10,7 +10,7 @@ FactoryGirl.define do
   end
 
   factory :fetch do
-    full_fetch true
+    full_fetch false
     user
   end
 
