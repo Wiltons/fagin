@@ -4,16 +4,13 @@ describe Fetch do
 
   let(:user) {FactoryGirl.create(:user)}
 
-  before do
-    @fetch = user.fetches.build(
-      full_fetch: false
-    )
-  end
+  before {@fetch = user.fetches.build(full_fetch: false)}
 
   subject {@fetch}
 
   it {should respond_to(:user)}
   it {should respond_to(:full_fetch)}
+  it {should respond_to(:articles)}
   its(:user) {should eq user}
 
   describe "when user_id is not present" do
