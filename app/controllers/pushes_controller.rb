@@ -14,6 +14,7 @@ class PushesController < ApplicationController
           tag_items << article.item_id if article.word_count > 1000
         end
       end
+      @push = current_user.pushes.create
       redirect_to push_path
     end
   end

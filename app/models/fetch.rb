@@ -31,6 +31,7 @@ class Fetch < ActiveRecord::Base
         given_title: value["given_title"],
         word_count: value["word_count"]
       }
+      # If we have already saved the article, update it. Otherwise create it
       art.persisted? ? art.update_attributes(params) : self.articles.create(params)
     end
   end
