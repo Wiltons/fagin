@@ -8,7 +8,6 @@ class CreateArticles < ActiveRecord::Migration
       t.integer :status
       t.integer :is_article
       t.integer :word_count
-      t.text :tags
       t.integer :fetch_id
 
       t.timestamps

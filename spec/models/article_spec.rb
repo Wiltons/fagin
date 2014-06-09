@@ -17,6 +17,7 @@ describe Article do
   it {should respond_to(:item_id)}
   it {should respond_to(:given_url)}
   it {should respond_to(:given_title)}
+  it {should respond_to(:tags)}
   its(:fetch) {should eq fetch}
 
   it {should be_valid}
