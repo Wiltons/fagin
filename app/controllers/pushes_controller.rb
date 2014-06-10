@@ -17,4 +17,8 @@ class PushesController < ApplicationController
 
   end
 
+  def index
+
+  end
+
 end
