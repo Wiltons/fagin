@@ -32,11 +32,10 @@ class Fetch < ActiveRecord::Base
         word_count: value["word_count"]
       }
       # If the article exists, update it. Otherwise create it
-      art.persisted? ? art.update_attributes(params) : self.articles.create(params)
+      art.persisted? ? art.update_attributes(params) : art=self.articles.create!(params)
       unless value["tags"].nil?
         value["tags"].each do |key, value|
-          puts key.to_yaml
-          art.tags.build(name: key).save!
+          art.tags.create!(name: key)
         end
       end
     end
