@@ -12,7 +12,7 @@ class Fetch < ActiveRecord::Base
     req.body={"consumer_key" => ENV['pocket_key'],
               "access_token" => user.pocket_token,
               "detailType" => 'complete',
-              "state" => 'all',
+              "state" => 'unread',
               "contentType" => 'article',
               "since" => since }.to_json
     res = Net::HTTP.start(uri.host, uri.port, :use_ssl => true) do |http|

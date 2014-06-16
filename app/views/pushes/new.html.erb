@@ -1,13 +1,13 @@
 <% provide(:title, 'Push') %>
 <h1>Push</h1>
 <%= form_for @push do |f| %>
-  <%= f.label :tags, "I want to tag" %>
-  <%= f.select :id, [['All','all'],['Long','long']] %>
-  <%= f.label :operation, "text articles that take" %>
-  <%= f.select :id, [['Over','over'],['Under','under']] %>
-  <%= f.number_field :id %>
-  <%= f.label :length, "minutes to read with the tag" %>
-  <%= f.select :id, [['Long','long'],['Short','short']] %>
+  <%= f.label :source_tag_name, "I want to tag" %>
+  <%= f.select :source_tag_name, [['All','all'],['Long','long']] %>
+  <%= f.label :comparator, "text articles that take" %>
+  <%= f.select :comparator, [['Over','over'],['Under','under']] %>
+  <%= f.number_field :article_length%>
+  <%= f.label :article_length, "minutes to read with the tag" %>
+  <%= f.select :destination_tag_name, [['Long','long'],['Short','short']] %>
   <%= f.submit "Save", class: "btn btn-large btn-primary" %>
   <%= f.submit "Save and Run", class: "btn btn-large btn-primary" %>
   <%= f.submit "Save and Create New", class: "btn btn-large btn-primary" %>

@@ -1,7 +1,7 @@
 class Push < ActiveRecord::Base
   belongs_to :user
   has_many :articles
-  before_save :quick_tag_long
+  validates :article_length, presence: true
 
   def quick_tag_long
     # Get all items IDs for articles over the specified length
@@ -19,11 +19,14 @@ class Push < ActiveRecord::Base
 
     actions = Array.new
 
+    # Create the array of actions
     tag_items.each do |item|
-      actions << {"action" => "tags_clear",
-                  "item_id" => "#{item}"
+      actions << {"action" => "tags_add",
+                  "item_id" => "#{item}",
+                  "tags" => "long"
       }
     end
+    # Append the query string to the base url
     req.path << "?"
     req.path << { "access_token" => user.pocket_token,
                   "actions" => actions.to_json,
@@ -35,9 +38,6 @@ class Push < ActiveRecord::Base
       http.ssl_version= :SSLv3
       http.request req
     end
-
-    raise res.to_yaml
-
   end
 
 end
