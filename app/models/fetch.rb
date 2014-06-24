@@ -6,13 +6,13 @@ class Fetch < ActiveRecord::Base
   after_save :populate_articles
 
   def populate_articles
-    since = full_fetch ? nil : user.fetches.maximum(:created_at).to_i
+    since = self.full_fetch ? nil : user.fetches.maximum(:created_at).to_i
     uri=URI('https://getpocket.com/v3/get')
     req = Net::HTTP::Post.new(uri.path, initheader = {'Content-Type' => 'application/json'})
     req.body={"consumer_key" => ENV['pocket_key'],
               "access_token" => user.pocket_token,
               "detailType" => 'complete',
-              "state" => 'unread',
+              "state" => 'all',
               "contentType" => 'article',
               "since" => since }.to_json
     res = Net::HTTP.start(uri.host, uri.port, :use_ssl => true) do |http|
@@ -29,7 +29,9 @@ class Fetch < ActiveRecord::Base
         favorite: value["favorite"],
         status: value["status"],
         given_title: value["given_title"],
-        word_count: value["word_count"]
+        word_count: value["word_count"],
+        time_added_pocket: value["time_added"],
+        time_updated_pocket: value["time_updated"]
       }
       # If the article exists, update it. Otherwise create it
       art.persisted? ? art.update_attributes(params) : art=self.articles.create!(params)
