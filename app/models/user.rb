@@ -32,6 +32,17 @@ class User < ActiveRecord::Base
     return numArticles
   end
 
+  def get_tags
+    @tags = Array.new
+    self.fetches.each do |f|
+      f.articles.each do |a|
+        a.tags.each do |t|
+          @tags << t.name
+        end
+      end
+    end
+  end
+
   private
 
     def create_remember_token
