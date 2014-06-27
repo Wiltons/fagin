@@ -1,3 +1,15 @@
 // Place all the styles related to the Pushes controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+/* dropdowns */
+select.dropdown {
+  height: 30px;
+  width: 100px;
+  display: inline;
+}
+
+input.number {
+  height: 30px;
+  width: 55px;
+}
