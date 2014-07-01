@@ -41,6 +41,7 @@ class User < ActiveRecord::Base
         end
       end
     end
+    return @tags
   end
 
   private
