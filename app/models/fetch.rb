@@ -34,12 +34,11 @@ class Fetch < ActiveRecord::Base
         time_added_pocket: value["time_added"],
         time_updated_pocket: value["time_updated"],
         time_read: value["time_read"],
-        time_favorited: value["time_favorited"]
+        time_favorited: value["time_favorited"],
         user_id: self.user_id
       }
       # If the article exists, update it. Otherwise create it
       art.persisted? ? art.update_attributes(params) : art=self.articles.create!(params)
-      raise self.user.articles.to_yaml
       # Save tags unless there aren't any tags with the article
       unless value["tags"].nil?
         value["tags"].each do |key, value|

@@ -9,7 +9,7 @@
     <%= f.select(:comparator, ['Over','Under'], {}, { :class => "dropdown" }) %>
     <%= f.number_field :article_length, :class => "number" %>
     minutes to read with the tag
-    <%= f.select(:destination_tag_name, ['Long','Short'], {}, { :class => "dropdown" }) %>
+    <%= f.select(:destination_tag_name, current_user.get_tags, {}, { :class => "dropdown" }) %>
     </font>
   </div>
   <%= f.submit "Save", class: "btn btn-small btn-primary" %>
