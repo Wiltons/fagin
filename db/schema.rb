@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140702230408) do
+ActiveRecord::Schema.define(version: 20140724225320) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,7 +24,6 @@ ActiveRecord::Schema.define(version: 20140702230408) do
     t.integer  "status"
     t.integer  "is_article"
     t.integer  "word_count"
-    t.text     "tags"
     t.integer  "fetch_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -55,6 +54,8 @@ ActiveRecord::Schema.define(version: 20140702230408) do
     t.integer  "article_length"
     t.string   "destination_tag_name"
   end
+
+  add_index "pushes", ["user_id", "source_tag_name", "destination_tag_name"], name: "pushes_pk", using: :btree
 
   create_table "tags", force: true do |t|
     t.string   "name"

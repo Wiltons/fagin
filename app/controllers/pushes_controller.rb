@@ -8,8 +8,14 @@ class PushesController < ApplicationController
 
   def create
     if signed_in?
-      @push = current_user.pushes.create!(push_params)
-      redirect_to push_path
+      @push = current_user.pushes.create(push_params)
+      if @push.save
+        flash[:success] = "Push created successfully"
+        redirect_to pushes_path
+      else
+        flash[:error] = "Errors exist"
+        render 'new'
+      end
     end
   end
 

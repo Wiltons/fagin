@@ -1,7 +1,14 @@
 class Push < ActiveRecord::Base
   belongs_to :user
   has_many :articles
+  after_save :tag
   validates :article_length, presence: true
+  validates_uniqueness_of :article_length, 
+    scope: [:user_id, :source_tag_name, :destination_tag_name]
+
+  def tag
+    raise params.to_yaml
+  end
 
   def quick_tag_long
     # Get all items IDs for articles over the specified length

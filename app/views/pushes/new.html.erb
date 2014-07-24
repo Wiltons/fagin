@@ -1,6 +1,7 @@
 <% provide(:title, 'Push') %>
 <h1>Push</h1>
 <%= form_for @push do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
   <div>
     <font size="4">
     I want to tag   

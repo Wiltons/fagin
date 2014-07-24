@@ -36,6 +36,7 @@ class User < ActiveRecord::Base
 
   def get_tags
     @tags = Array.new
+    @tags << "all"
     self.tags.each do |t|
       @tags << t.name
     end
