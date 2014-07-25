@@ -1,23 +1,12 @@
 class Push < ActiveRecord::Base
   belongs_to :user
   has_many :articles
-  after_save :tag
   validates :article_length, presence: true
   validates_uniqueness_of :article_length, 
     scope: [:user_id, :source_tag_name, :destination_tag_name]
 
-  def tag
-    raise params.to_yaml
-  end
-
-  def quick_tag_long
-    # Get all items IDs for articles over the specified length
-    tag_items = Array.new
-    user.fetches.each do |fetch|
-      fetch.articles.each do |article|
-        tag_items << article.item_id if article.word_count > 1000
-      end
-    end
+  def tag_articles
+    items = collect_articles
 
     # Prepare the Pocket modify URL
     # This looks like, and likely is, a crappy hack job
@@ -27,12 +16,13 @@ class Push < ActiveRecord::Base
     actions = Array.new
 
     # Create the array of actions
-    tag_items.each do |item|
+    items.each do |item|
       actions << {"action" => "tags_add",
                   "item_id" => "#{item}",
-                  "tags" => "long"
+                  "tags" => self.destination_tag_name
       }
     end
+
     # Append the query string to the base url
     req.path << "?"
     req.path << { "access_token" => user.pocket_token,
@@ -45,6 +35,18 @@ class Push < ActiveRecord::Base
       http.ssl_version= :SSLv3
       http.request req
     end
+
   end
 
+  def collect_articles
+    items = Array.new
+    user.articles.each do |a|
+      if self.comparator=='Over'
+        items << a.item_id if a.word_count > (self.article_length * user.wpm)
+      elsif self.comparator=='Under'
+        items << a.item_id if a.word_count < (self.article_length * user.wpm)
+      end
+    end
+    return items
+  end
 end

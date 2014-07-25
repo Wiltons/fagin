@@ -11,7 +11,12 @@ class PushesController < ApplicationController
       @push = current_user.pushes.create(push_params)
       if @push.save
         flash[:success] = "Push created successfully"
-        redirect_to pushes_path
+        if params[:commit] == "Save and Create New"
+          redirect_to push_path
+        else
+          @push.tag_articles unless params[:commit] == "Save"
+          redirect_to pushes_path
+        end
       else
         flash[:error] = "Errors exist"
         render 'new'

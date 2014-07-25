@@ -73,7 +73,7 @@ ActiveRecord::Schema.define(version: 20140724225320) do
     t.boolean  "admin",          default: false
     t.string   "uid"
     t.string   "pocket_token"
-    t.integer  "wpm"
+    t.integer  "wpm",            default: 200
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

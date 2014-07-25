@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
     self.tags.each do |t|
       @tags << t.name
     end
-    return @tags
+    return @tags.uniq
   end
 
   private
