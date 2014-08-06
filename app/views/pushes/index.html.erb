@@ -1,5 +1,9 @@
 <% provide(:title, 'All Taggers') %>
-<h1>All taggers</h1>
+<h1>All Rules</h1>
+
+<% if current_user.pushes.empty? %>
+  <%= link_to "Nothing to see here! Go create some rules", new_push_path %>
+<% end %>
 
 <%= will_paginate %>
 

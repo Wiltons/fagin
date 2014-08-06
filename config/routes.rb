@@ -1,7 +1,7 @@
 Fagin::Application.routes.draw do
   get "fetches/new"
   resources :users
-  resources :pushes, only: [:create, :index]
+  resources :pushes, only: [:new, :create, :index, :destroy, :show]
   resources :fetches, only: [:create, :destroy]
   resources :sessions, only: [:new, :create, :destroy]
   root 'static_pages#home'

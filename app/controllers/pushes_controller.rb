@@ -19,17 +19,27 @@ class PushesController < ApplicationController
         end
       else
         flash[:error] = "Errors exist"
-        render 'new'
+        redirect_to push_path
       end
     end
   end
 
   def show
-
+    run_push=Push.find(params[:id])
+    run_push.tag_articles
+    flash[:success] = "Successfully ran! (#{run_push.source_tag_name} #{run_push.comparator} #{run_push.article_length} mins with tag #{run_push.destination_tag_name})"
+    redirect_to pushes_path
   end
 
   def index
     @pushes = Push.paginate(page: params[:page])
+  end
+
+  def destroy
+    delete_push = Push.find(params[:id])
+    flash[:success] = "Rule deleted: Tagging #{delete_push.source_tag_name} articles #{delete_push.comparator} #{delete_push.article_length} minutes long with tag #{delete_push.destination_tag_name}"
+    delete_push.destroy
+    redirect_to pushes_path
   end
 
   private

@@ -1,4 +1,6 @@
 <li>
-  <%= link_to "Tag '#{push.source_tag_name}' articles #{push.comparator} #{push.article_length} minutes long with tag: #{push.destination_tag_name}", push %>
+  <%= "Tag '#{push.source_tag_name}' articles #{push.comparator} #{push.article_length} minutes long with tag: #{push.destination_tag_name}|" %>
+  <%= link_to "Delete", push, method: :delete, data: {confirm: "Are you sure?" } %> | 
+  <%= link_to "Run Me", push %>
 </li>
 
