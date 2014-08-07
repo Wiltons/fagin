@@ -1,5 +1,5 @@
 <% unless current_user.email.blank? %>
-  <%= link_to gravatar_for(current_user, size: 52), current_user %>
+  <%= link_to gravatar_for(current_user, size: 52), edit_user_path(current_user) %>
 <% end %>
 <h1>
   <%= current_user.uid %>
