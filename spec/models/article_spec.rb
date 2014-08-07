@@ -17,8 +17,21 @@ describe Article do
   it {should respond_to(:item_id)}
   it {should respond_to(:given_url)}
   it {should respond_to(:given_title)}
-  it {should respond_to(:tag_relationships)}
+  it {should respond_to(:favorite)}
+  it {should respond_to(:status)}
+  it {should respond_to(:is_article)}
+  it {should respond_to(:word_count)}
+  it {should respond_to(:fetch_id)}
+  it {should respond_to(:created_at)}
+  it {should respond_to(:updated_at)}
+  it {should respond_to(:push_id)}
+  it {should respond_to(:time_added_pocket)}
+  it {should respond_to(:time_updated_pocket)}
+  it {should respond_to(:time_read)}
+  it {should respond_to(:time_favorited)}
+  it {should respond_to(:user_id)}
   its(:fetch) {should eq fetch}
+  its(:user) {should eq user}
 
   it {should be_valid}
 

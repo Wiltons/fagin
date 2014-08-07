@@ -37,8 +37,9 @@ def fetch_new_article
       {\"item_id\":\"1111111\",
       \"given_url\":\"http:\\/\\/getpocket.com\\/developer\\/docs\\/v3\\/retrieve\",
       \"given_title\":\"\", \"favorite\":\"0\",
-      \"status\":\"0\", \"time_added\":\"#{Time.now.to_i+1000}\",
-      \"time_updated\":\"#{Time.now.to_i+1000}\",
+      \"status\":\"0\", 
+      \"time_added\":\"1400690783\",
+      \"time_updated\":\"1400703984\",
       \"resolved_title\":\"Retrieve\",
       \"resolved_url\":\"http:\\/\\/getpocket.com\\/developer\\/docs\\/v3\\/retrieve\",
       \"is_article\":\"1\", \"word_count\":\"855\"}

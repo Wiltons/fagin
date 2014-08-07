@@ -29,7 +29,6 @@ module Fagin
     I18n.enforce_available_locales = true
  
     if Rails.env == 'development'
-      raise "something".to_yaml
       rails_root = Rails.root || File.dirname(__FILE__) + '/../..'
       config = YAML.load_file(rails_root.to_s + '/config/env_vars.yml')
       if config.key?(Rails.env) && config[Rails.env].is_a?(Hash)

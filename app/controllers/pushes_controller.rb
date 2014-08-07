@@ -1,6 +1,7 @@
 class PushesController < ApplicationController
 
-  before_action :signed_in_user
+  before_action :signed_in_user, only: [:new, :index, :edit, :update, :destroy]
+  before_action :correct_user, only: :destroy
 
   def new
     @push = current_user.pushes.build if signed_in?
@@ -10,7 +11,7 @@ class PushesController < ApplicationController
     if signed_in?
       @push = current_user.pushes.create(push_params)
       if @push.save
-        flash[:success] = "Push created successfully"
+        flash[:success] = "Rule created successfully"
         if params[:commit] == "Save and Create New"
           redirect_to push_path
         else
@@ -27,7 +28,7 @@ class PushesController < ApplicationController
   def show
     run_push=Push.find(params[:id])
     run_push.tag_articles
-    flash[:success] = "Successfully ran! (#{run_push.source_tag_name} #{run_push.comparator} #{run_push.article_length} mins with tag #{run_push.destination_tag_name})"
+    flash[:success] = "Successfully Ran! (#{run_push.source_tag_name} #{run_push.comparator} #{run_push.article_length} mins with tag #{run_push.destination_tag_name})"
     redirect_to pushes_path
   end
 

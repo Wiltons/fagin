@@ -39,7 +39,7 @@ describe "Static pages" do
         visit root_path
       end
 
-      it {should have_content('view my profile')}
+      #it {should have_content('view my profile')}
       
       it "should have populate links" do
         expect(page).to have_selector(:button, 'Fetch Pocket Articles')
