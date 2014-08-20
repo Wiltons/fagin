@@ -10,6 +10,7 @@ describe "Authentication" do
     describe "with a pocket failure" do
       before do
         OmniAuth.config.mock_auth[:pocket] = :invalid_credentials
+        OmniAuth.config.logger.stub(:error)
         click_link 'Sign in with Pocket'
       end
       
