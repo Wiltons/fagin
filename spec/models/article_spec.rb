@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Article do
   before(:each) do
-    fetch_one_article
+    fake_one_article
   end
 
   let(:user)    {FactoryGirl.create(:user)}

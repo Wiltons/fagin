@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "Static pages" do
   before(:each) do
-    fetch_one_article
+    fake_one_article
   end
 
   subject { page }
@@ -63,7 +63,7 @@ describe "Static pages" do
         it "should save a new article on a full fetch with new articles" do
           expect{click_button 'Fetch Pocket Articles' }.to change(Article, :count).by(1)
           find(:xpath, "/html/body/div/div/form/input[2]").set(true)
-          fetch_new_article
+          fake_new_article
           expect{click_button 'Fetch Pocket Articles' }.to change(Article, :count).by(1)
         end
 
@@ -76,7 +76,7 @@ describe "Static pages" do
         it "should save a new article on a partial fetch" do
           expect{click_button 'Fetch Pocket Articles' }.to change(Article, :count).by(1)
           find(:xpath, "/html/body/div/div/form/input[2]").set(false)
-          fetch_new_article
+          fake_new_article
           expect{click_button 'Fetch Pocket Articles' }.to change(Article, :count).by(1)
         end
       end

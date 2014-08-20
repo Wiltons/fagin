@@ -29,7 +29,7 @@ def sign_in(user, options={})
   end
 end
 
-def fetch_one_article
+def fake_one_article
   body = "{\"status\":1,
     \"complete\":1,
     \"list\":
@@ -58,7 +58,7 @@ def fetch_one_article
   FakeWeb.register_uri(:post, "https://getpocket.com/v3/get", body: body)
 end
 
-def fetch_new_article
+def fake_new_article
   body = "{\"status\":1,
     \"complete\":1,
     \"list\":
