@@ -1,6 +1,9 @@
 require 'spec_helper'
 
 describe Article do
+  before(:each) do
+    fetch_one_article
+  end
 
   let(:user)    {FactoryGirl.create(:user)}
   let(:fetch)   {user.fetches.create(full_fetch: false)}

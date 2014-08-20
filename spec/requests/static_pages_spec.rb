@@ -1,6 +1,9 @@
 require 'spec_helper'
 
 describe "Static pages" do
+  before(:each) do
+    fetch_one_article
+  end
 
   subject { page }
 
