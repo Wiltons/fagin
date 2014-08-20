@@ -8,7 +8,8 @@ describe Article do
     @article = fetch.articles.build(
       item_id: 1, 
       word_count: 500, 
-      given_url: 'http://test.com'
+      given_url: 'http://test.com',
+      user_id: user.id
     )
   end
 
