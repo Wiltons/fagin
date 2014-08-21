@@ -58,6 +58,43 @@ describe Article do
     specify{expect(@secnd_art).not_to be_valid}
   end
 
+  describe ".for_item_id_and_fetch" do
+    let(:item_id) { '12345' }
+    let(:fetch) { FactoryGirl.create(:fetch) }
+
+    subject(:article) do
+      Article.for_item_id_and_fetch(item_id, fetch)
+    end
+
+    context "when the article doesn't exist yet" do
+      it "creates a new article" do
+        expect(article).to be_new_record
+      end
+
+      it "assigns the fetch to the article" do
+        expect(article.fetch).to eq(fetch)
+      end
+
+      it "assigns the fetch's user to the article" do
+        expect(article.user).to eq(fetch.user)
+      end
+    end
+
+    context "when the article already exists" do
+      let!(:existing_article) do
+        FactoryGirl.create(:article, item_id: 12345)
+      end
+
+      it "returns the existing article" do
+        expect(article).to eq(existing_article)
+      end
+
+      it "doesn't assign the new fetch to the article" do
+        expect(article.fetch).to eq(existing_article.fetch)
+      end
+    end
+  end
+
   describe "#assign_pocket_data" do
     let(:attribute_mapping) do
       {

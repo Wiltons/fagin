@@ -23,11 +23,7 @@ class Fetch < ActiveRecord::Base
     end
     article = JSON[res.body]
     article["list"].each do |key, value|
-      art = Article.find_or_initialize_by(item_id: key)
-      if art.new_record?
-        art.fetch = self
-        art.user = self.user
-      end
+      art = Article.for_item_id_and_fetch(key, self)
       art.assign_pocket_data(value)
       art.save!
       # Save tags unless there aren't any tags with the article

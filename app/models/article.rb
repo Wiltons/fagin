@@ -6,6 +6,13 @@ class Article < ActiveRecord::Base
   validates :item_id,     presence: true, uniqueness: true
   validates :word_count,  presence: true
 
+  def self.for_item_id_and_fetch(item_id, fetch)
+    self.find_or_initialize_by(item_id: item_id) do |article|
+      article.fetch = fetch
+      article.user = fetch.user
+    end
+  end
+
   def assign_pocket_data(pocket_data)
     assign_attributes(
       given_url: pocket_data['given_url'],
