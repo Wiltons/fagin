@@ -24,21 +24,12 @@ class Fetch < ActiveRecord::Base
     article = JSON[res.body]
     article["list"].each do |key, value|
       art = Article.find_or_initialize_by(item_id: key)
-      params = {
-        item_id: key,
-        given_url: value["given_url"],
-        favorite: value["favorite"],
-        status: value["status"],
-        given_title: value["given_title"],
-        word_count: value["word_count"],
-        time_added_pocket: value["time_added"],
-        time_updated_pocket: value["time_updated"],
-        time_read: value["time_read"],
-        time_favorited: value["time_favorited"],
-        user_id: self.user_id
-      }
-      # If the article exists, update it. Otherwise create it
-      art.persisted? ? art.update_attributes(params) : art=self.articles.create!(params)
+      if art.new_record?
+        art.fetch = self
+        art.user = self.user
+      end
+      art.assign_pocket_data(value)
+      art.save!
       # Save tags unless there aren't any tags with the article
       unless value["tags"].nil?
         value["tags"].each do |key, value|

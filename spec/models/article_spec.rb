@@ -57,4 +57,28 @@ describe Article do
     end
     specify{expect(@secnd_art).not_to be_valid}
   end
+
+  describe "#assign_pocket_data" do
+    let(:attribute_mapping) do
+      {
+        'given_url' => :given_url,
+        'given_title' => :given_title,
+        'favorite' => :favorite,
+        'status' => :status,
+        'word_count' => :word_count,
+        'time_added' => :time_added_pocket,
+        'time_updated' => :time_updated_pocket,
+        'time_read' => :time_read,
+        'time_favorited' => :time_favorited
+      }
+    end
+
+    it "sets the right attributes on the article" do
+      attribute_mapping.each do |pocket_attribute, article_attribute|
+        attribute_value = double.as_null_object
+        @article.assign_pocket_data(pocket_attribute => attribute_value)
+        expect(@article.send(article_attribute)).to eq(attribute_value)
+      end
+    end
+  end
 end
