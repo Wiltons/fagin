@@ -118,4 +118,23 @@ describe Article do
       end
     end
   end
+
+  describe "#tagged?" do
+    context "when a matching tag exists" do
+      before(:each) do
+        @article.save!
+        @article.tags.create!(name: 'some_tag')
+      end
+
+      it "returns true" do
+        expect(@article.tagged?('some_tag')).to be_true
+      end
+    end
+
+    context "when no matching tag exists" do
+      it "returns false" do
+        expect(@article.tagged?('some_tag')).to be_false
+      end
+    end
+  end
 end

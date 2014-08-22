@@ -26,4 +26,8 @@ class Article < ActiveRecord::Base
       time_favorited: pocket_data['time_favorited']
     )
   end
+
+  def tagged?(tag_name)
+    tags.exists?(name: tag_name)
+  end
 end
