@@ -20,13 +20,12 @@ describe "Pushing Pages" do
   end
 
   describe "index page" do
+    before { 31.times { FactoryGirl.create(:push) } }
     before {visit pushes_path}
     it {should have_title('All Rules')}
     it {should have_content('All Rules')}
-# Implement FactoryGirl for creating taggers
     it {should have_selector('div.pagination')}
     it {should have_link('Run')}
-    #it {should have_button('Edit')}
     it {should have_link('Delete')}
   end
 end

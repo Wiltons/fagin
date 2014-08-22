@@ -28,5 +28,8 @@ FactoryGirl.define do
     fetch
   end
 
+  factory :push do
+    sequence(:article_length) { |n| n }
+  end
 end
 
