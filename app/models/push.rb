@@ -6,7 +6,7 @@ class Push < ActiveRecord::Base
     scope: [:user_id, :source_tag_name, :destination_tag_name, :comparator]
 
   def tag_articles
-    items = collect_articles
+    articles = collect_articles
 
     # Prepare the Pocket modify URL
     # This looks like, and likely is, a crappy hack job
@@ -16,9 +16,9 @@ class Push < ActiveRecord::Base
     actions = Array.new
 
     # Create the array of actions
-    items.each do |item|
+    articles.each do |article|
       actions << {"action" => "tags_add",
-                  "item_id" => "#{item}",
+                  "item_id" => "#{article.item_id}",
                   "tags" => self.destination_tag_name
       }
     end
@@ -42,9 +42,9 @@ class Push < ActiveRecord::Base
     items = Array.new
     user.articles.each do |a|
       if self.comparator=='Over' and (a.tagged?(self.source_tag_name) or self.source_tag_name=="absolutely_all")
-        items << a.item_id if a.word_count > (self.article_length * user.wpm)
+        items << a if a.word_count > (self.article_length * user.wpm)
       elsif self.comparator=='Under' and (a.tagged?(self.source_tag_name) or self.source_tag_name=="absolutely_all")
-        items << a.item_id if a.word_count < (self.article_length * user.wpm)
+        items << a if a.word_count < (self.article_length * user.wpm)
       end
     end
     return items
