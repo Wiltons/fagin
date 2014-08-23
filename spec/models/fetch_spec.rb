@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Fetch do
+describe Fetch, :type => :model do
 
   let(:user) {FactoryGirl.create(:user)}
 

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Static pages" do
+describe "Static pages", :type => :request do
   before(:each) do
     fake_one_article
   end

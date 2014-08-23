@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Fetching Pages" do
+describe "Fetching Pages", :type => :request do
 
   
 

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Pushing Pages" do
+describe "Pushing Pages", :type => :request do
 
   let(:user) {FactoryGirl.create(:user)}
   before do

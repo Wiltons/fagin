@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Article do
+describe Article, :type => :model do
   before(:each) do
     fake_one_article
   end
@@ -127,13 +127,13 @@ describe Article do
       end
 
       it "returns true" do
-        expect(@article.tagged?('some_tag')).to be_true
+        expect(@article.tagged?('some_tag')).to be_truthy
       end
     end
 
     context "when no matching tag exists" do
       it "returns false" do
-        expect(@article.tagged?('some_tag')).to be_false
+        expect(@article.tagged?('some_tag')).to be_falsey
       end
     end
   end

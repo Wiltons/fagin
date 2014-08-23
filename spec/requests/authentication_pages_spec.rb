@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Authentication" do
+describe "Authentication", :type => :request do
 
   subject {page}
 
@@ -10,7 +10,7 @@ describe "Authentication" do
     describe "with a pocket failure" do
       before do
         OmniAuth.config.mock_auth[:pocket] = :invalid_credentials
-        OmniAuth.config.logger.stub(:error)
+        allow(OmniAuth.config.logger).to receive(:error)
         click_link 'Sign in with Pocket'
       end
       
