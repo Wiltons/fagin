@@ -1,7 +1,6 @@
 class PushesController < ApplicationController
 
   before_action :signed_in_user, only: [:new, :index, :edit, :update, :destroy]
-  before_action :correct_user, only: :destroy
 
   def new
     @push = current_user.pushes.build if signed_in?
