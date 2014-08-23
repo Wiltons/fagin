@@ -26,14 +26,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def count_articles
-    numArticles = 0
-    fetches.each do |f|
-      numArticles += f.articles.count
-    end
-    return numArticles
-  end
-
   def get_tags
     tags.map(&:name).uniq.sort.unshift('absolutely_all')
   end

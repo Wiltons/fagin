@@ -14,6 +14,6 @@
     <% end %>
   </p>
   <p>
-    <%= pluralize(current_user.count_articles, "article") unless current_user.fetches.maximum(:created_at).nil? %>
+    <%= pluralize(current_user.articles.count, "article") unless current_user.fetches.maximum(:created_at).nil? %>
   </p>
 </span>
