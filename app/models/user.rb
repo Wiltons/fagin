@@ -39,7 +39,8 @@ class User < ActiveRecord::Base
     self.tags.each do |t|
       @tags << t.name
     end
-    @tags.uniq!.sort! unless @tags.empty?
+    @tags.uniq! unless @tags.empty?
+    @tags.sort! unless @tags.empty?
     @tags.unshift("absolutely_all")
   end
 
