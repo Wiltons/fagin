@@ -35,10 +35,7 @@ class User < ActiveRecord::Base
   end
 
   def get_tags
-    @tags = Array.new
-    self.tags.each do |t|
-      @tags << t.name
-    end
+    @tags = tags.map(&:name)
     @tags.uniq!
     @tags.sort!
     @tags.unshift("absolutely_all")
