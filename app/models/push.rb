@@ -41,14 +41,12 @@ class Push < ActiveRecord::Base
   private
 
     def collect_articles
-      items = Array.new
-      user.articles.each do |a|
+      user.articles.select do |a|
         if self.comparator=='Over' and (a.tagged?(self.source_tag_name) or self.source_tag_name=="absolutely_all")
-          items << a if a.word_count > (self.article_length * user.wpm)
+          a.word_count > (self.article_length * user.wpm)
         elsif self.comparator=='Under' and (a.tagged?(self.source_tag_name) or self.source_tag_name=="absolutely_all")
-          items << a if a.word_count < (self.article_length * user.wpm)
+          a.word_count < (self.article_length * user.wpm)
         end
       end
-      return items
     end
 end
