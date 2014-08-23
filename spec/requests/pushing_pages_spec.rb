@@ -20,7 +20,7 @@ describe "Pushing Pages", :type => :request do
   end
 
   describe "index page" do
-    before { 31.times { FactoryGirl.create(:push) } }
+    before { 31.times { FactoryGirl.create(:push, user: User.last) } }
     before {visit pushes_path}
     it {should have_title('All Rules')}
     it {should have_content('All Rules')}

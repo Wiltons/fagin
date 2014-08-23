@@ -26,18 +26,18 @@ class PushesController < ApplicationController
   end
 
   def show
-    run_push=Push.find(params[:id])
+    run_push = current_user.pushes.find(params[:id])
     run_push.tag_articles
     flash[:success] = "Successfully Ran! (#{run_push.source_tag_name} #{run_push.comparator} #{run_push.article_length} mins with tag #{run_push.destination_tag_name})"
     redirect_to pushes_path
   end
 
   def index
-    @pushes = Push.paginate(page: params[:page])
+    @pushes = current_user.pushes.paginate(page: params[:page])
   end
 
   def destroy
-    delete_push = Push.find(params[:id])
+    delete_push = current_user.pushes.find(params[:id])
     flash[:success] = "Rule deleted: Tagging #{delete_push.source_tag_name} articles #{delete_push.comparator} #{delete_push.article_length} minutes long with tag #{delete_push.destination_tag_name}"
     delete_push.destroy
     redirect_to pushes_path
