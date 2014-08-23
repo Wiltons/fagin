@@ -20,7 +20,7 @@ class PushesController < ApplicationController
         end
       else
         flash[:error] = "Errors exist"
-        redirect_to push_path
+        render :new
       end
     end
   end
