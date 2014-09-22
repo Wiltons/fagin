@@ -12,7 +12,6 @@ class CreateArticles < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :articles, [:item_id], unique: true
     add_index :articles, [:created_at]
   end
 end

@@ -3,11 +3,11 @@ class Article < ActiveRecord::Base
   belongs_to :user
   has_many :tags
   validates :fetch_id,    presence: true
-  validates :item_id,     presence: true, uniqueness: true
+  validates :item_id,     presence: true
   validates :word_count,  presence: true
 
   def self.for_item_id_and_fetch(item_id, fetch)
-    self.find_or_initialize_by(item_id: item_id) do |article|
+    self.find_or_initialize_by_item_id_and_user_id(item_id, fetch.user.id) do |article|
       article.fetch = fetch
       article.user = fetch.user
     end

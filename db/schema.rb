@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 20140724225320) do
   end
 
   add_index "articles", ["created_at"], name: "index_articles_on_created_at", using: :btree
-  add_index "articles", ["item_id"], name: "index_articles_on_item_id", unique: true, using: :btree
+  add_index "articles", ["item_id", "user_id"], name: "article_pk", unique: true, using: :btree
 
   create_table "fetches", force: true do |t|
     t.boolean  "full_fetch"
