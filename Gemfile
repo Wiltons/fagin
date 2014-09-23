@@ -12,7 +12,8 @@ gem 'bootstrap-will_paginate', '0.0.9'
 gem 'pg', '0.15.1'
 gem 'omniauth'
 gem 'omniauth-pocket'
-gem 'delayed_job_active_record' 
+gem 'delayed_job_active_record'
+gem "workless", "~> 1.1.3"
 
 group :development, :test do
   gem 'sqlite3', '1.3.8'
