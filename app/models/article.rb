@@ -5,9 +5,10 @@ class Article < ActiveRecord::Base
   validates :fetch_id,    presence: true
   validates :item_id,     presence: true
   validates :word_count,  presence: true
+  validates_uniqueness_of :item_id, :scope => :user_id
 
   def self.for_item_id_and_fetch(item_id, fetch)
-    self.find_or_initialize_by_item_id_and_user_id(item_id, fetch.user.id) do |article|
+    self.find_or_initialize_by(item_id: item_id, user_id: fetch.user.id) do |article|
       article.fetch = fetch
       article.user = fetch.user
     end

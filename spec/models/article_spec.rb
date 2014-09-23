@@ -49,10 +49,10 @@ describe Article, :type => :model do
     it {should_not be_valid}
   end
 
-  describe "when two articles have the same item_id" do
+  describe "when two articles have the same item_id and user" do
     before do
-      @first_art=fetch.articles.create(item_id: 1, word_count: 500, given_url: 'test', fetch: fetch)
-      @secnd_art=fetch.articles.build(item_id: 1, word_count: 500, given_url: 'test', fetch: fetch)
+      @first_art=fetch.articles.create(item_id: 1, word_count: 500, given_url: 'test', fetch: fetch, user_id: user.id)
+      @secnd_art=fetch.articles.build(item_id: 1, word_count: 500, given_url: 'test', fetch: fetch, user_id: user.id)
       @secnd_art.item_id=@first_art.item_id
     end
     specify{expect(@secnd_art).not_to be_valid}
@@ -82,7 +82,7 @@ describe Article, :type => :model do
 
     context "when the article already exists" do
       let!(:existing_article) do
-        FactoryGirl.create(:article, item_id: 12345)
+        FactoryGirl.create(:article, item_id: 12345, fetch_id: fetch.id)
       end
 
       it "returns the existing article" do

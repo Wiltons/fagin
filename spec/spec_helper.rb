@@ -92,4 +92,5 @@ RSpec.configure do |config|
   config.include Capybara::DSL
 
   OmniAuth.config.test_mode = true
+  Delayed::Worker.delay_jobs = false
 end
