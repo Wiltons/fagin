@@ -1,6 +1,7 @@
 class FetchesController < ApplicationController
   def create
     @fetch = current_user.fetches.create(fetch_params)
+    @fetch.delay.populate_articles
     if @fetch.articles.empty?
       flash[:notice] = "No new articles to fetch"
     else

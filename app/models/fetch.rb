@@ -3,7 +3,6 @@ class Fetch < ActiveRecord::Base
   has_many :articles, dependent: :destroy
   validates :user_id,     presence: true
   validates_inclusion_of :full_fetch, in: [true, false]
-  after_save :populate_articles
 
   def populate_articles
     # Retrieve all articles saved or updated since just before the last fetch
@@ -19,7 +18,7 @@ class Fetch < ActiveRecord::Base
     res = Net::HTTP.start(uri.host, uri.port, :use_ssl => true) do |http|
       http.verify_mode= OpenSSL::SSL::VERIFY_NONE
       http.ssl_version= :SSLv3
-      http.request req
+      http.request(req)
     end
     article = JSON[res.body]
     article["list"].each do |key, value|
