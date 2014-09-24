@@ -14,6 +14,8 @@
     <% end %>
   </p>
   <p>
-    <%= pluralize(current_user.articles.count, "article") unless current_user.fetches.maximum(:created_at).nil? %>
+    <%= pluralize(current_user.articles.to_a.count { |x| x.status==0 }, "live article") unless current_user.fetches.maximum(:created_at).nil? %>
+    <br />
+    <%= pluralize(current_user.articles.to_a.count { |x| x.status==1 }, "archived article") unless current_user.fetches.maximum(:created_at).nil? %>
   </p>
 </span>
