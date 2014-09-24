@@ -2,8 +2,8 @@ class Push < ActiveRecord::Base
   belongs_to :user
   has_many :articles
   validates :article_length, presence: true
-  validates_uniqueness_of :article_length, 
-    scope: [:user_id, :source_tag_name, :destination_tag_name, :comparator]
+  validates_uniqueness_of :destination_tag_name,
+    :scope => [:source_tag_name, :user_id, :comparator, :article_length]
 
   def tag_articles
     articles = collect_articles

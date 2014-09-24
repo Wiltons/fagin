@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(version: 20140922235920) do
     t.string   "destination_tag_name"
   end
 
-  add_index "pushes", ["user_id", "source_tag_name", "destination_tag_name", "comparator"], name: "pushes_pk", using: :btree
+  add_index "pushes", ["user_id", "source_tag_name", "destination_tag_name", "comparator", "article_length"], name: "pushes_pk", unique: true, using: :btree
 
   create_table "tags", force: true do |t|
     t.string   "name"

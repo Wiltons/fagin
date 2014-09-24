@@ -11,7 +11,7 @@ class PushesController < ApplicationController
     if @push.save
       flash[:success] = "Rule created successfully"
       if params[:commit] == "Save and Create New"
-        redirect_to push_path
+        redirect_to new_push_path
       else
         @push.tag_articles unless params[:commit] == "Save"
         redirect_to pushes_path
