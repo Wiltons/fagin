@@ -13,8 +13,8 @@ class PushesController < ApplicationController
       if params[:commit] == "Save and Create New"
         redirect_to new_push_path
       else
-        @push.tag_articles unless params[:commit] == "Save"
-        redirect_to pushes_path
+        @push.tag_articles(false) unless params[:commit] == "Save"
+        redirect_to articles_path
       end
     else
       flash[:error] = "Errors exist"

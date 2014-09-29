@@ -5,7 +5,7 @@ class Push < ActiveRecord::Base
   validates_uniqueness_of :destination_tag_name,
     :scope => [:source_tag_name, :user_id, :comparator, :article_length]
 
-  def tag_articles
+  def tag_articles(commit_to_pocket)
     articles = collect_articles
 
     # Prepare the Pocket modify URL
@@ -17,6 +17,10 @@ class Push < ActiveRecord::Base
 
     # Create the array of actions
     articles.each do |article|
+      if not commit_pocket_articles
+        article.push_id=self.id
+        article.save!
+      end
       actions << {"action" => "tags_add",
                   "item_id" => "#{article.item_id}",
                   "tags" => self.destination_tag_name
@@ -30,10 +34,14 @@ class Push < ActiveRecord::Base
                   "consumer_key" => ENV['pocket_key']
                 }.to_query
     # Send the modify string to Pocket
-    res = Net::HTTP.start(uri.host, uri.port, :use_ssl => true) do |http|
-      http.verify_mode= OpenSSL::SSL::VERIFY_NONE
-      http.ssl_version= :SSLv3
-      http.request req
+    if commit_to_pocket
+      res = Net::HTTP.start(uri.host, uri.port, :use_ssl => true) do |http|
+        http.verify_mode= OpenSSL::SSL::VERIFY_NONE
+        http.ssl_version= :SSLv3
+        http.request req
+      end
+    else
+
     end
 
   end

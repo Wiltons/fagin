@@ -6,7 +6,11 @@ class Fetch < ActiveRecord::Base
 
   def populate_articles
     # Retrieve all articles saved or updated since just before the last fetch
-    since = self.full_fetch ? nil : (user.fetches.maximum(:created_at) - 6.hours).to_i
+    if self.full_fetch or user.fetches.count < 2
+      since = nil
+    else
+      user.fetches.to_a.second.created_at.to_i
+    end
     uri=URI('https://getpocket.com/v3/get')
     req = Net::HTTP::Post.new(uri.path, initheader = {'Content-Type' => 'application/json'})
     req.body={"consumer_key" => ENV['pocket_key'],

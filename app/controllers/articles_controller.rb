@@ -12,6 +12,10 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def index
+
+  end
+
   def destroy
 
   end
