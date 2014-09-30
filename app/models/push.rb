@@ -8,6 +8,8 @@ class Push < ActiveRecord::Base
   def tag_articles(commit_to_pocket)
     articles = collect_articles
 
+    return articles unless commit_to_pocket
+
     # Prepare the Pocket modify URL
     # This looks like, and likely is, a crappy hack job
     uri=URI('https://getpocket.com/v3/send')
@@ -17,10 +19,8 @@ class Push < ActiveRecord::Base
 
     # Create the array of actions
     articles.each do |article|
-      if not commit_pocket_articles
-        article.push_id=self.id
-        article.save!
-      end
+      article.push_id=self.id
+      article.save!
       actions << {"action" => "tags_add",
                   "item_id" => "#{article.item_id}",
                   "tags" => self.destination_tag_name
@@ -34,16 +34,11 @@ class Push < ActiveRecord::Base
                   "consumer_key" => ENV['pocket_key']
                 }.to_query
     # Send the modify string to Pocket
-    if commit_to_pocket
-      res = Net::HTTP.start(uri.host, uri.port, :use_ssl => true) do |http|
-        http.verify_mode= OpenSSL::SSL::VERIFY_NONE
-        http.ssl_version= :SSLv3
-        http.request req
-      end
-    else
-
+    res = Net::HTTP.start(uri.host, uri.port, :use_ssl => true) do |http|
+      http.verify_mode= OpenSSL::SSL::VERIFY_NONE
+      http.ssl_version= :SSLv3
+      http.request req
     end
-
   end
 
   private

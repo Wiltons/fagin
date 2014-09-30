@@ -1,8 +1,11 @@
 <% provide(:title, 'Index of Articles') %>
 <h1>Index of Articles</h1>
 
-<p>The following articles will be tagged. Click here to undo</p>
+<meta http-equiv="refresh" content="10; url=<%= current_user.pushes.last.tag_articles(false) %>" />
+<meta http-equiv="refresh" content="11; url=<%= pushes_path %>" />
+
+<p>Click here to undo</p>
 <ul class="articles">
-  <%= render current_user.pushes.last.articles %>
+  <%= render current_user.pushes.last.tag_articles(false) %>
 </ul>
 

@@ -12,9 +12,10 @@ class PushesController < ApplicationController
       flash[:success] = "Rule created successfully"
       if params[:commit] == "Save and Create New"
         redirect_to new_push_path
-      else
-        @push.tag_articles(false) unless params[:commit] == "Save"
+      elsif params[:commit] == "Save and Run"
         redirect_to articles_path
+      else
+        redirect_to pushes_path
       end
     else
       flash[:error] = "Errors exist"
