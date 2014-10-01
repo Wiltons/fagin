@@ -1,0 +1,10 @@
+<% provide(:title, @push.source_tag_name ) %>
+<h1>Articles to be Modified</h1>
+
+<%= link_to "Click here to undo this action", pushes_undo_path(@push.id) %>
+
+<div>
+  <ul class="articles">
+    <%= render @articles %>
+  </ul>
+</div>

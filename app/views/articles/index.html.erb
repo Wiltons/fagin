@@ -3,8 +3,12 @@
 
 <!-- This is a placeholder - we should visit the path the user came from.
      Also the Push doesn't need to be deleted  -->
-<%= link_to "Click here to undo this action", root_url %>
+<%= link_to "Click here to undo this action", pushes_undo_path(current_user.pushes.last.id) %>
+
+<%= will_paginate %>
 <ul class="articles">
-  <%= render current_user.pushes.last.collect_articles %>
+  <%= render @articles %>
 </ul>
+
+<%= will_paginate %>
 

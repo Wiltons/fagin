@@ -1,7 +1,7 @@
 Fagin::Application.routes.draw do
   get "fetches/new"
   resources :users
-  resources :pushes, only: [:new, :create, :index, :destroy, :show]
+  resources :pushes, only: [:new, :create, :index, :destroy, :show, :undo]
   resources :fetches, only: [:create, :destroy]
   resources :sessions, only: [:new, :create, :destroy]
   resources :articles, only: [:index]
@@ -13,7 +13,7 @@ Fagin::Application.routes.draw do
   match '/help',	  to:'static_pages#help',		        via: 'get'
   match '/about',	  to:'static_pages#about',	        via: 'get'
   match '/contact',	to:'static_pages#contact',	      via: 'get'
-  match '/push/commit', to:'pushes#commit',           via: 'get'
+  match '/pushes/:id/undo', to:'pushes#undo',           via: 'get', as: :pushes_undo
   match '/auth/pocket/callback',  to:'sessions#create',  via: 'get'
   match '/auth/failure', to:'sessions#failure', via: 'get'
   match '/show/populate_articles', to:'users#populate_articles', via: 'post'

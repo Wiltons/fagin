@@ -12,7 +12,7 @@ class ArticlesController < ApplicationController
   end
 
   def index
-    
+    @articles = current_user.pushes.last.collect_articles.paginate(page: params[:page])
   end
 
   def destroy
