@@ -14,6 +14,7 @@ gem 'omniauth'
 gem 'omniauth-pocket'
 gem 'delayed_job_active_record'
 gem "workless", "~> 1.1.3"
+gem "httpclient", "2.4.0"
 
 group :development, :test do
   gem 'sqlite3', '1.3.8'

@@ -21,7 +21,7 @@ class Fetch < ActiveRecord::Base
               "since" => since }.to_json
     res = Net::HTTP.start(uri.host, uri.port, :use_ssl => true) do |http|
       http.verify_mode= OpenSSL::SSL::VERIFY_NONE
-      http.ssl_version= :SSLv3
+      http.ssl_version= :TLSv1
       http.request(req)
     end
     article = JSON[res.body]

@@ -13,6 +13,7 @@ class PushesController < ApplicationController
       if params[:commit] == "Save and Create New"
         redirect_to new_push_path
       elsif params[:commit] == "Save and Run"
+        commit_push
         redirect_to articles_path
       else
         redirect_to pushes_path
@@ -34,10 +35,6 @@ class PushesController < ApplicationController
     @pushes = current_user.pushes.paginate(page: params[:page])
   end
 
-  def commit
-    raise "test".to_yaml
-  end
-
   def destroy
     delete_push = current_user.pushes.find(params[:id])
     flash[:success] = "Rule deleted: Tagging #{delete_push.source_tag_name} articles #{delete_push.comparator} #{delete_push.article_length} minutes long with tag #{delete_push.destination_tag_name}"
@@ -49,6 +46,10 @@ class PushesController < ApplicationController
 
     def push_params
       params.require(:push).permit!
+    end
+
+    def commit_push
+      @push.delay(run_at: 1.minutes.from_now).tag_articles
     end
 
 end
