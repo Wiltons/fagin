@@ -30,6 +30,8 @@ FactoryGirl.define do
 
   factory :push do
     sequence(:article_length) { |n| n }
+    sequence(:destination_tag_name) { |n| "dest_#{n}" }
+    sequence(:source_tag_name)  { |n| "src_#{n}" }
   end
 end
 

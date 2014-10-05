@@ -2,13 +2,14 @@ class Push < ActiveRecord::Base
   belongs_to :user
   has_many :articles
   validates :article_length, presence: true
+  validates :source_tag_name, presence: true
+  validates :destination_tag_name, presence: true
+  validates :user_id, presence: true
   validates_uniqueness_of :destination_tag_name,
     :scope => [:source_tag_name, :user_id, :comparator, :article_length]
 
-  def tag_articles(commit_to_pocket)
+  def tag_articles
     articles = collect_articles
-
-    return articles unless commit_to_pocket
 
     # Prepare the Pocket modify URL
     # This looks like, and likely is, a crappy hack job
@@ -41,15 +42,13 @@ class Push < ActiveRecord::Base
     end
   end
 
-  private
-
-    def collect_articles
-      user.articles.select do |a|
-        if self.comparator=='Over' and (a.tagged?(self.source_tag_name) or self.source_tag_name=="absolutely_all")
-          a.word_count > (self.article_length * user.wpm)
-        elsif self.comparator=='Under' and (a.tagged?(self.source_tag_name) or self.source_tag_name=="absolutely_all")
-          a.word_count < (self.article_length * user.wpm)
-        end
+  def collect_articles
+    user.articles.select do |a|
+      if self.comparator=='Over' and (a.tagged?(self.source_tag_name) or self.source_tag_name=="absolutely_all")
+        a.word_count > (self.article_length * user.wpm)
+      elsif self.comparator=='Under' and (a.tagged?(self.source_tag_name) or self.source_tag_name=="absolutely_all")
+        a.word_count < (self.article_length * user.wpm)
       end
     end
+  end
 end

@@ -1,11 +1,13 @@
 <% provide(:title, 'Index of Articles') %>
 <h1>Index of Articles</h1>
 
-<meta http-equiv="refresh" content="10; url=<%= current_user.pushes.last.tag_articles(false) %>" />
-<meta http-equiv="refresh" content="11; url=<%= pushes_path %>" />
+<!--meta http-equiv="refresh" content="11; url=<%= pushes_path %>" /-->
 
+<!-- This is a placeholder - we should visit the path the user came from.
+     Also the Push doens't need to be deleted  -->
+<% link_to "Click here to undo this action" new_push_path %>
 <p>Click here to undo</p>
 <ul class="articles">
-  <%= render current_user.pushes.last.tag_articles(false) %>
+  <%= render current_user.pushes.last.collect_articles %>
 </ul>
 
