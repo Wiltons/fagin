@@ -34,6 +34,10 @@ class PushesController < ApplicationController
     @pushes = current_user.pushes.paginate(page: params[:page])
   end
 
+  def commit
+    raise "test".to_yaml
+  end
+
   def destroy
     delete_push = current_user.pushes.find(params[:id])
     flash[:success] = "Rule deleted: Tagging #{delete_push.source_tag_name} articles #{delete_push.comparator} #{delete_push.article_length} minutes long with tag #{delete_push.destination_tag_name}"

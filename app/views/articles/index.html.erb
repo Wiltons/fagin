@@ -1,12 +1,16 @@
 <% provide(:title, 'Index of Articles') %>
 <h1>Index of Articles</h1>
 
-<!--meta http-equiv="refresh" content="11; url=<%= pushes_path %>" /-->
+<script type="text/javascript">
+function delayedRedirect(){
+      window.location = "/push/commit"
+}
+</script>
+<body onLoad="setTimeout('delayedRedirect()', 3000)">
 
 <!-- This is a placeholder - we should visit the path the user came from.
-     Also the Push doens't need to be deleted  -->
-<% link_to "Click here to undo this action" new_push_path %>
-<p>Click here to undo</p>
+     Also the Push doesn't need to be deleted  -->
+<%= link_to "Click here to undo this action", root_url %>
 <ul class="articles">
   <%= render current_user.pushes.last.collect_articles %>
 </ul>
