@@ -2,7 +2,7 @@
 <h1>All Rules</h1>
 
 <% if current_user.pushes.empty? %>
-  <%= link_to "Nothing to see here! Go create some rules", new_push_path %>
+  <h2><%= link_to "Nothing to see here! Go create some rules", new_push_path %></h2>
 <% end %>
 
 <%= will_paginate %>

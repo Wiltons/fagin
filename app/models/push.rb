@@ -51,4 +51,20 @@ class Push < ActiveRecord::Base
       end
     end
   end
+
+  def push_hash
+    push_details=""
+    push_details << self.source_tag_name << self.destination_tag_name << self.comparator << self.article_length
+    queue_name=Digest::SHA256.hexdigest push_details
+  end
+
+  def get_outstanding_jobs
+    dj = Delayed::Job.find_by(queue: self.push_hash)
+    dj.nil? ? nil : dj
+  end
+
+  def undo_commit
+    dj = get_outstanding_jobs
+    dj.destroy unless dj.nil?
+  end
 end

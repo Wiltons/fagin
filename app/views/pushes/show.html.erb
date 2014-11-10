@@ -1,7 +1,13 @@
 <% provide(:title, @push.source_tag_name ) %>
-<h1>Articles to be Modified</h1>
 
-<%= link_to "Click here to undo this action", pushes_undo_path(@push.id) %>
+<h1>Articles included in this rule</h1>
+
+<h2><%= link_to "Delete", @push, method: :delete, data: {confirm: "Are you sure?" } %>
+<% if @push.get_outstanding_jobs.nil? %>
+| 
+<%= link_to "Run", pushes_run_path(@push) %>
+<% end %></h2>
+
 
 <div>
   <ul class="articles">
