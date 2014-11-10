@@ -24,7 +24,6 @@ ActiveRecord::Schema.define(version: 20140922235920) do
     t.integer  "status"
     t.integer  "is_article"
     t.integer  "word_count"
-    t.text     "tags"
     t.integer  "fetch_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -38,7 +37,6 @@ ActiveRecord::Schema.define(version: 20140922235920) do
 
   add_index "articles", ["created_at"], name: "index_articles_on_created_at", using: :btree
   add_index "articles", ["item_id", "user_id"], name: "article_pk", unique: true, using: :btree
-  add_index "articles", ["item_id"], name: "index_articles_on_item_id", unique: true, using: :btree
 
   create_table "delayed_jobs", force: true do |t|
     t.integer  "priority",   default: 0, null: false
