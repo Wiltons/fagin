@@ -1,6 +1,7 @@
 development:
-  pocket_key: XXXXXX
-  DATABASE_USER: myuser
-  DATABASE_PASS: mypass
+  pocket_key: 31025-ed32af1f40c221930705649e
+  DATABASE_USER: cillians
+  DATABASE_PASS:
 production:
-  pocket_key: XXXXXX
+  pocket_key: 31025-ed32af1f40c221930705649e
+
