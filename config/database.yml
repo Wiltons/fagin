@@ -1,0 +1,15 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: mydb
+  pool: 5
+  username: myuser
+  password: mypass
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: mytestdb
+  pool: 5
+  username: myuser
+  password: mypass

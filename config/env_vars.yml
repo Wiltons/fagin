@@ -1,0 +1,6 @@
+development:
+  pocket_key: XXXXXX
+  DATABASE_USER: myuser
+  DATABASE_PASS: mypass
+production:
+  pocket_key: XXXXXX

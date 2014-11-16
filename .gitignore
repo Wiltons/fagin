@@ -16,7 +16,7 @@
 /tmp
 
 # Ignore other unneeded files
-database.yml
+#database.yml
 doc/
 *.swp
 *~
@@ -24,4 +24,4 @@ doc/
 .DS_Store
 .idea
 .secret
-config/env_vars.yml
+#config/env_vars.yml
