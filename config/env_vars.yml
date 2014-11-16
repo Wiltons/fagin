@@ -1,7 +1,7 @@
 development:
-  pocket_key: 31025-ed32af1f40c221930705649e
-  DATABASE_USER: cillians
+  pocket_key:
+  DATABASE_USER:
   DATABASE_PASS:
 production:
-  pocket_key: 31025-ed32af1f40c221930705649e
+  pocket_key:
 

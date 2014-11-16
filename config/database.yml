@@ -1,16 +1,16 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: fagin
+  database: mydevdb
   pool: 5
-  username:
-  password:
+  username: myuser
+  password: mypass
 
 test:
   adapter: postgresql
   encoding: unicode
-  database: fagin
+  database: mytestdb
   pool: 5
-  username:
-  password:
+  username: myuser
+  password: mypass
 
