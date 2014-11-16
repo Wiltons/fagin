@@ -1,7 +1,0 @@
-development:
-  pocket_key:
-  DATABASE_USER:
-  DATABASE_PASS:
-production:
-  pocket_key:
-
