@@ -5,7 +5,7 @@
   <div>
     <font size="4">
     I want to tag   
-    <%= f.select(:source_tag_name, current_user.get_tags, {}, { :class => "dropdown" }) %> 
+    <%= f.select(:source_tag_name, current_user.get_tag_names, {}, { :class => "dropdown" }) %> 
     articles
     <%= f.select(:comparator, ['Over','Under'], {}, { :class => "dropdown" }) %>
     <%= f.number_field :article_length, :class => "number" %>

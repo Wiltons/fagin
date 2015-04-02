@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def get_tags
+  def get_tag_names
     tags.map(&:name).uniq.sort.unshift('absolutely_all')
   end
 

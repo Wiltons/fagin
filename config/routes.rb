@@ -5,7 +5,7 @@ Fagin::Application.routes.draw do
   resources :fetches, only: [:create, :destroy]
   resources :sessions, only: [:new, :create, :destroy]
   resources :articles, only: [:index]
-  resources :tags
+  resources :tags, only: [:show, :index]
   root 'static_pages#home'
   match '/signup',	to:'users#new',			              via: 'get'
   match '/push',    to:'pushes#new',                  via: 'get'

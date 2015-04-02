@@ -1,0 +1,16 @@
+<% provide(:title, 'Tag') %>
+<h1>Tag Analysis</h1>
+
+<p><%= "Average length of articles tagged by you using the '#{@tag.name}' tag is #{@avg_len} words" %></p>
+<p></p>
+<hr>
+<h2><%= "Articles tagged with '#{@tag.name}' by you" %></h2>
+<%= will_paginate %>
+
+<%= render @articles %>
+
+<%= will_paginate %>
+
+<hr>
+<h2><%= "Articles tagged with '#{@tag.name}' by others" %></h2>
+
