@@ -10,7 +10,7 @@ class FetchesController < ApplicationController
     end
     if !fullFetch && @fetch.articles.empty?
       flash[:notice] = "No new articles to fetch"
-    elsif fullFetchq
+    elsif fullFetch
       flash[:notice] = "Queueing full fetch - this will take some time"
     else
       flash[:success] = "Successfully fetched #{@fetch.articles.count} articles!"
