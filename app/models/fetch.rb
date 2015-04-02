@@ -22,6 +22,8 @@ class Fetch < ActiveRecord::Base
     res = Net::HTTP.start(uri.host, uri.port, :use_ssl => true) do |http|
       http.verify_mode= OpenSSL::SSL::VERIFY_NONE
       http.ssl_version= :TLSv1
+      http.proxy_address=ENV['PROXY_ADDR']
+      http.proxy_port=ENV['PROXY_PORT']
       http.request(req)
     end
     article = JSON[res.body]
