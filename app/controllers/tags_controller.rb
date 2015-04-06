@@ -13,12 +13,7 @@ class TagsController < ApplicationController
 
   def show
     @tag=current_user.tags.find(params[:id])
-    article_ids = Tag.where(name: @tag.name)
-# This is absolute nonsense
-    @tags=Article.where(id: article_ids).paginate(page: params[:page])
-    @articles = Article.where(id: article_ids)
-    article_lengths = @articles.map(&:word_count)
-    @avg_len = (article_lengths.sum / article_lengths.size)
+    @my_articles = current_user.articles.includes(:tags).where(tags: {id: @tag.id}).paginate(page: params[:page])
   end
 
 end

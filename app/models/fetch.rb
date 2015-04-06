@@ -22,8 +22,6 @@ class Fetch < ActiveRecord::Base
     res = Net::HTTP.start(uri.host, uri.port, :use_ssl => true) do |http|
       http.verify_mode= OpenSSL::SSL::VERIFY_NONE
       http.ssl_version= :TLSv1
-      http.proxy_address=ENV['PROXY_ADDR']
-      http.proxy_port=ENV['PROXY_PORT']
       http.request(req)
     end
     article = JSON[res.body]
@@ -34,7 +32,9 @@ class Fetch < ActiveRecord::Base
       # Save tags unless there aren't any tags with the article
       unless value["tags"].nil?
         value["tags"].each do |key, value|
-          art.tags.create!(name: key)
+          tag=Tag.find_or_create_by_name(key)
+          art.tags << tag
+          #tag=art.tags.find_or_create_by_name(key)
         end
       end
     end

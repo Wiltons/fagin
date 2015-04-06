@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140922235920) do
+ActiveRecord::Schema.define(version: 20150406170901) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,11 @@ ActiveRecord::Schema.define(version: 20140922235920) do
 
   add_index "articles", ["created_at"], name: "index_articles_on_created_at", using: :btree
   add_index "articles", ["item_id", "user_id"], name: "article_pk", unique: true, using: :btree
+
+  create_table "articles_tags", force: true do |t|
+    t.integer "article_id"
+    t.integer "tag_id"
+  end
 
   create_table "delayed_jobs", force: true do |t|
     t.integer  "priority",   default: 0, null: false
@@ -75,10 +80,11 @@ ActiveRecord::Schema.define(version: 20140922235920) do
 
   create_table "tags", force: true do |t|
     t.string   "name"
-    t.integer  "article_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
   create_table "users", force: true do |t|
     t.string   "name"

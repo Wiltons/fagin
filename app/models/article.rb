@@ -2,7 +2,7 @@ class Article < ActiveRecord::Base
   belongs_to :fetch
   belongs_to :user
   belongs_to :push
-  has_many :tags
+  has_and_belongs_to_many :tags
   validates :fetch_id,    presence: true
   validates :item_id,     presence: true
   validates :word_count,  presence: true

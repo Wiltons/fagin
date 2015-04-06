@@ -5,12 +5,14 @@
 <p></p>
 <hr>
 <h2><%= "Articles tagged with '#{@tag.name}' by you" %></h2>
-<%= will_paginate %>
 
-<%= render @articles %>
-
-<%= will_paginate %>
+<%= will_paginate @my_articles %>
+<%= render @my_articles %>
+<%= will_paginate @my_articles %>
 
 <hr>
 <h2><%= "Articles tagged with '#{@tag.name}' by others" %></h2>
 
+<%= will_paginate @all_articles %>
+<%= render @all_articles %>
+<%= will_paginate @all_articles %>
