@@ -79,7 +79,7 @@ Fagin::Application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   config.after_initialize do 
-    Delayed::Job.scaler = :heroku_cedar
+    Delayed::Job.scaler = :null
   end
 
 end
