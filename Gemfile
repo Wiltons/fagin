@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.1.0'
+ruby '2.2.0'
 #ruby-gemset=railstutorial_rails_4_0
 
 gem 'rails', '4.0.2'
@@ -17,7 +17,6 @@ gem "workless", "~> 1.1.3"
 gem "httpclient", "2.4.0"
 
 group :development, :test do
-  gem 'sqlite3', '1.3.8'
   gem 'rspec-rails', '~> 3.0.0'
   gem 'rspec-its'
   # The following optional lines are part of the advanced setup.
