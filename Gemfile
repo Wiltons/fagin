@@ -13,7 +13,7 @@ gem 'pg', '0.15.1'
 gem 'omniauth'
 gem 'omniauth-pocket'
 gem 'delayed_job_active_record'
-gem "workless", "~> 1.2.2"
+gem "workless", "~> 1.2.3"
 gem "httpclient", "2.4.0"
 
 group :development, :test do
