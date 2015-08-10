@@ -15,6 +15,7 @@ gem 'omniauth-pocket'
 gem 'delayed_job_active_record'
 gem "workless", "~> 1.2.3"
 gem "httpclient", "2.4.0"
+gem "daemons"
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0'
