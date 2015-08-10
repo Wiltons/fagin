@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150406170901) do
+ActiveRecord::Schema.define(version: 20150408214701) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "articles", force: true do |t|
+  create_table "articles", force: :cascade do |t|
     t.integer  "item_id"
     t.text     "given_url"
     t.text     "given_title"
@@ -38,12 +38,12 @@ ActiveRecord::Schema.define(version: 20150406170901) do
   add_index "articles", ["created_at"], name: "index_articles_on_created_at", using: :btree
   add_index "articles", ["item_id", "user_id"], name: "article_pk", unique: true, using: :btree
 
-  create_table "articles_tags", force: true do |t|
+  create_table "articles_tags", force: :cascade do |t|
     t.integer "article_id"
     t.integer "tag_id"
   end
 
-  create_table "delayed_jobs", force: true do |t|
+  create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
     t.integer  "attempts",   default: 0, null: false
     t.text     "handler",                null: false
@@ -59,14 +59,15 @@ ActiveRecord::Schema.define(version: 20150406170901) do
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
-  create_table "fetches", force: true do |t|
+  create_table "fetches", force: :cascade do |t|
     t.boolean  "full_fetch"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "finished"
   end
 
-  create_table "pushes", force: true do |t|
+  create_table "pushes", force: :cascade do |t|
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -78,7 +79,7 @@ ActiveRecord::Schema.define(version: 20150406170901) do
 
   add_index "pushes", ["user_id", "source_tag_name", "destination_tag_name", "comparator", "article_length"], name: "pushes_pk", unique: true, using: :btree
 
-  create_table "tags", force: true do |t|
+  create_table "tags", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -86,7 +87,7 @@ ActiveRecord::Schema.define(version: 20150406170901) do
 
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
     t.datetime "created_at"
